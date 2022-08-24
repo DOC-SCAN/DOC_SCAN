@@ -8,6 +8,7 @@ import os
 from flask_cors import CORS
 import time
 import jpg_compress_mechanisms
+import oracle_apis
 
 compress = Compress()
 app = Flask(__name__)
@@ -36,6 +37,12 @@ def route_function_zip():
 @app.route("/scan_base64")
 def route_function_base():
     route_object = main_scanner_driver()
+    return route_object
+
+
+@app.route("/ipd")
+def route_function_ipd():
+    route_object = oracle_apis.ipd_patient_details()
     return route_object
 
 
