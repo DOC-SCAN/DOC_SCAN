@@ -1,4 +1,4 @@
-from flask import send_file, Flask, Response, jsonify
+from flask import send_file, Flask, Response, request, make_response, jsonify
 from flask_compress import Compress
 import waitress
 from driver_helper import main_scanner_driver, clear_crap
@@ -42,8 +42,29 @@ def route_function_base():
 
 @app.route("/ipd")
 def route_function_ipd():
-    route_object = oracle_apis.ipd_patient_details()
+    mr = str(request.args.get('mr'))
+    route_object = oracle_apis.ipd_patient_details(mr)
     return route_object
+
+
+@app.route("/ipd/with_date")
+def route_function_ipd_with_dates():
+    mr = str(request.args.get('mr'))
+    date = str(request.args.get('date'))
+    route_object = oracle_apis.ipd_patient_details_with_date(date, mr)
+    return route_object
+
+
+@app.route("/ipd/dates")
+def route_function_ipddates():
+    mr = request.args.get('mr')
+    route_object = oracle_apis.ipd_patient_details_dates_only(mr)
+    return route_object
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 if __name__ == "__main__":
