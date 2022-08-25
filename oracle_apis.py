@@ -128,10 +128,13 @@ def ipd_patient_details_dates_only(m):
         df = pd.DataFrame(row, index=['complain', 'admission_ID', 'admission_date', 'speciality',
                                       'doctor_ID', 'doctor_name'], )
         # print(df)
-
+        d = str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9]
+        dd = d[5:7]
+        d = (str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
+            (df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[:-6]
         query_result = {
             'admission_ID': df.iloc[1][0],
-            'admission_date': (df.iloc[2][0])
+            'admission_date': d
         }
         admission_details.append(query_result)
     admission_details.pop(0)
@@ -144,4 +147,4 @@ def ipd_patient_details_dates_only(m):
 
 
 if __name__ == '__main__':
-    ipd_patient_details_with_date("06/01/2016","958035")
+    ipd_patient_details_dates_only("958035")
