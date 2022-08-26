@@ -40,7 +40,7 @@ def route_function_base():
     return route_object
 
 
-@app.route("/ipd")
+@app.route("/ipd/all_details")
 def route_function_ipd():
     mr = str(request.args.get('mr'))
     route_object = oracle_apis.ipd_patient_details(mr)
@@ -55,10 +55,32 @@ def route_function_ipd_with_dates():
     return route_object
 
 
-@app.route("/ipd/dates")
-def route_function_ipddates():
+@app.route("/ipd/all_dates")
+def route_function_ipd_dates():
     mr = request.args.get('mr')
     route_object = oracle_apis.ipd_patient_details_dates_only(mr)
+    return route_object
+
+
+@app.route("/opd/all_details")
+def route_function_opd():
+    mr = request.args.get('mr')
+    route_object = oracle_apis.opd_patient_details(mr)
+    return route_object
+
+
+@app.route("/opd/all_dates")
+def route_function_opd_dates():
+    mr = request.args.get('mr')
+    route_object = oracle_apis.opd_patient_details_dates_only(mr)
+    return route_object
+
+
+@app.route("/opd/with_date")
+def route_function_opd_with_dates():
+    mr = str(request.args.get('mr'))
+    date = str(request.args.get('date'))
+    route_object = oracle_apis.opd_patient_details_with_date(date, mr)
     return route_object
 
 
