@@ -218,11 +218,10 @@ def opd_patient_details_with_date(date, m):
     date = str(date[0:3]) + str(nu) + "/" + str(date[-4:])
     print(date)
     print(month)
-    query = "SELECT initcap(cn.pc) pc,a.pk_str_admission_id,a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant from ADMISSION.TBL_ADMISSION A, emr.const_notes         CN, doctors                 d, specialities            sp WHERE a.pk_str_admission_id = cn.id_ and a.fk_int_admitting_dr_id = d.doctor_id and d.primary_speciality_id = sp.speciality_id and a.mr# = " + mr + " and trunc(a.fld_dat_adm_date)='"+ date +"' group by initcap(cn.pc), a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant"
+    query = "select o.tran_id, o.tran_date, sp.speciality_name, p.doctor_id, d.consultant from cashglobal_details_opd p, cashglobal_opd         o, specialities           sp, doctors                d where p.tran_id = o.tran_id and p.doctor_id = d.doctor_id  and d.primary_speciality_id = sp.speciality_id and p.major_id = '5555' and o.mr# =" + mr + "and o.site_id = '1' and trunc(o.tran_date) = '" + date + "'"
     print(query)
     visit_details = [
         {
-            'patient_complain': u'',
             'visit_id': u'',
             'visit_date': u'',
             'doctor_speciality': u'',
@@ -233,21 +232,20 @@ def opd_patient_details_with_date(date, m):
     dsn_tns = cx_Oracle.connect('asad_25510/asad#123@developdb.shifa.com.pk:1521/devdata.shifa.com.pk')
     cursor = dsn_tns.cursor()
     for row in cursor.execute(query):
-        df = pd.DataFrame(row, index=['patient_complain', 'visit_id', 'visit_date', 'doctor_speciality',
+        df = pd.DataFrame(row, index=['visit_id', 'visit_date', 'doctor_speciality',
                                       'doctor_id', 'doctor_name'], )
         print(df)
-        d = str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9]
+        d = str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9]
         dd = d[5:7]
-        d = (str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
-            (df.iloc[2][0]), format="%m/%d/%y"))[:-9])[:-6]
+        d = (str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
+            (df.iloc[1][0]), format="%m/%d/%y"))[:-9])[:-6]
         print(d)
         query_result = {
-            'patient_complain': df.iloc[0][0],
-            'visit_id': df.iloc[1][0],
+            'visit_id': df.iloc[0][0],
             'visit_date': d,
-            'doctor_speciality': df.iloc[3][0],
-            'doctor_id': df.iloc[4][0],
-            'doctor_name': df.iloc[5][0]
+            'doctor_speciality': df.iloc[2][0],
+            'doctor_id': df.iloc[3][0],
+            'doctor_name': df.iloc[4][0]
         }
         visit_details.append(query_result)
     visit_details.pop(0)

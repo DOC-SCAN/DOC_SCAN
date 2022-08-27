@@ -1,11 +1,11 @@
 from pymongo import MongoClient
 
-myclient = MongoClient()
-myclient = MongoClient('localhost', 27017)
+my_client = MongoClient()
+my_client = MongoClient('localhost', 27017)
 
 
-def get_doc_id():
-    collection = myclient["DOC_SCAN"]
+def doc_id_dispatcher():
+    collection = my_client["DOC_SCAN"]
     doc_id = collection['DOCUMENT_ID']
     t = doc_id.find_one()
     ret = t["doc_id"]
@@ -14,5 +14,8 @@ def get_doc_id():
     return ret
 
 
-if __name__ == '__main__':
-    get_doc_id()
+def doc_saver():
+    pass
+
+
+

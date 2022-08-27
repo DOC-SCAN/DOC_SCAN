@@ -83,6 +83,15 @@ def route_function_opd_with_dates():
     return route_object
 
 
+@app.route("/save")
+def route_function_save():
+    scanner_images = request.args.get("scanned_image")
+    patient_info = request.args.get("patient_info")
+    print(len(patient_info))
+    print(len(scanner_images))
+    return "GGWP"
+
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
