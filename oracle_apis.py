@@ -1,7 +1,5 @@
 import cx_Oracle
 import pandas as pd
-import json
-from flask import Response
 import calendar
 
 

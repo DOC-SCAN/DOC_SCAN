@@ -1,6 +1,5 @@
-from flask import send_file, Flask, Response, request, make_response, jsonify
+from flask import send_file, Flask, request, make_response, jsonify
 from flask_compress import Compress
-import waitress
 from driver_helper import main_scanner_driver, clear_crap
 from zipfile import ZipFile
 from os.path import basename

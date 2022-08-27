@@ -1,10 +1,9 @@
-import json
 import os
 import time
 import base64
 import json
 import shutil
-from flask import send_file, Flask, Response, jsonify
+from flask import Response
 import jpg_compress_mechanisms
 
 directory_in_str = "C:\\DocScan"
