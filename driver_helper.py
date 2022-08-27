@@ -29,6 +29,7 @@ def clear_crap(folder_path):
 
 
 def main_scanner_driver():
+    image_data = []
     images = list()
     os.system("CmdTwain -q C:\\DocScan\\Doc_Scan_Test_Document.jpg")
     time.sleep(0.5)
@@ -36,6 +37,7 @@ def main_scanner_driver():
     print(os.listdir(directory_in_str))
     time.sleep(0.5)
     os.listdir(directory_in_str)
+    jpg_compress_mechanisms.resize_without_loosing_quality()
     directory = os.fsencode(directory_in_str)
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
@@ -47,15 +49,19 @@ def main_scanner_driver():
         else:
             continue
     print(len(images))
-    lis = list()
-    me = Object()
+    # lis = list()
+    # me = Object()
     for ind, i in enumerate(images):
-        me.name = str(ind)
-        me.base = (i[2:])
-        lis.append(me.toJSON())
+        img = {
+            "id": ind,
+            "baseX64": i
+        }
+        image_data.append(img)
+        # me.name = str(ind)
+        # me.base = (i[2:])
+        # lis.append(me.toJSON())
     folder = directory_in_str
-    jpg_compress_mechanisms.resize_without_loosing_quality()
     clear_crap(folder)
-    res = Response(json.dumps(lis))
-    res.headers.add('Access-Control-Allow-Origin', '*')
-    return res
+    # res = Response(json.dumps(lis))
+    # res.headers.add('Access-Control-Allow-Origin', '*')
+    return image_data
