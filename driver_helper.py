@@ -65,3 +65,5 @@ def main_scanner_driver():
     # res = Response(json.dumps(lis))
     # res.headers.add('Access-Control-Allow-Origin', '*')
     return image_data
+
+# added this to push without auth
