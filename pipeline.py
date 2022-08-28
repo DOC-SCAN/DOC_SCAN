@@ -8,11 +8,25 @@ from flask_cors import CORS
 import time
 import jpg_compress_mechanisms
 import oracle_apis
+from flask_restful import Api, Resource
+from flask_httpauth import HTTPBasicAuth
 
 compress = Compress()
 app = Flask(__name__)
 compress.init_app(app)
 CORS(app)
+api = Api(app)
+auth = HTTPBasicAuth()
+USER_DATA = {
+    "Username": "password"
+}
+
+
+@auth.verify_password
+def verify(username, password):
+    if not (username and password):
+        return False
+    return USER_DATA.get(username) == password
 
 
 @app.route("/scan_zip_file")
@@ -39,48 +53,54 @@ def route_function_base():
     return route_object
 
 
-@app.route("/ipd/all_details")
-def route_function_ipd():
-    mr = str(request.args.get('mr'))
-    route_object = oracle_apis.ipd_patient_details(mr)
-    return route_object
+class Route_Function_Ipd(Resource):
+    @auth.login_required
+    def get(self):
+        mr = str(request.args.get('mr'))
+        route_object = oracle_apis.ipd_patient_details(mr)
+        return route_object
 
 
-@app.route("/ipd/with_date")
-def route_function_ipd_with_dates():
-    mr = str(request.args.get('mr'))
-    date = str(request.args.get('date'))
-    route_object = oracle_apis.ipd_patient_details_with_date(date, mr)
-    return route_object
+class Route_Function_Ipd_With_Date(Resource):
+    @auth.login_required
+    def get(self):
+        mr = str(request.args.get('mr'))
+        date = str(request.args.get('date'))
+        route_object = oracle_apis.ipd_patient_details_with_date(date, mr)
+        return route_object
 
 
-@app.route("/ipd/all_dates")
-def route_function_ipd_dates():
-    mr = request.args.get('mr')
-    route_object = oracle_apis.ipd_patient_details_dates_only(mr)
-    return route_object
+class Route_Function_Ipd_Dates(Resource):
+    @auth.login_required
+    def get(self):
+        mr = request.args.get('mr')
+        route_object = oracle_apis.ipd_patient_details_dates_only(mr)
+        return route_object
 
 
-@app.route("/opd/all_details")
-def route_function_opd():
-    mr = request.args.get('mr')
-    route_object = oracle_apis.opd_patient_details(mr)
-    return route_object
+class Route_Function_Opd(Resource):
+    @auth.login_required
+    def get(self):
+        mr = request.args.get('mr')
+        route_object = oracle_apis.opd_patient_details(mr)
+        return route_object
 
 
-@app.route("/opd/all_dates")
-def route_function_opd_dates():
-    mr = request.args.get('mr')
-    route_object = oracle_apis.opd_patient_details_dates_only(mr)
-    return route_object
+class Route_Function_Opd_Dates(Resource):
+    @auth.login_required
+    def get(self):
+        mr = request.args.get('mr')
+        route_object = oracle_apis.opd_patient_details_dates_only(mr)
+        return route_object
 
 
-@app.route("/opd/with_date")
-def route_function_opd_with_dates():
-    mr = str(request.args.get('mr'))
-    date = str(request.args.get('date'))
-    route_object = oracle_apis.opd_patient_details_with_date(date, mr)
-    return route_object
+class Route_Function_Opd_With_Date(Resource):
+    @auth.login_required
+    def get(self):
+        mr = str(request.args.get('mr'))
+        date = str(request.args.get('date'))
+        route_object = oracle_apis.opd_patient_details_with_date(date, mr)
+        return route_object
 
 
 @app.route("/save")
@@ -96,6 +116,13 @@ def route_function_save():
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
+
+api.add_resource(Route_Function_Ipd, "/ipd/all_details")
+api.add_resource(Route_Function_Ipd_Dates, "/ipd/all_dates")
+api.add_resource(Route_Function_Ipd_With_Date, "/ipd/with_date")
+api.add_resource(Route_Function_Opd, "/opd/all_details")
+api.add_resource(Route_Function_Opd_Dates, "/opd/all_dates")
+api.add_resource(Route_Function_Opd_With_Date, "/opd/with_date")
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
