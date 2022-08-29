@@ -15,6 +15,8 @@ def doc_id_dispatcher():
 
 
 def doc_saver():
+    collection = my_client["DOC_SCAN"]
+    doc_id = collection['DOCUMENT_ID']
     pass
 
 # added this to push without ssl
