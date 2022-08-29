@@ -125,7 +125,7 @@ api.add_resource(Route_Function_Opd_Dates, "/opd/all_dates")
 api.add_resource(Route_Function_Opd_With_Date, "/opd/with_date")
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', ssl_context='adhoc', threaded=True)
+    app.run(debug=True, host='0.0.0.0', threaded=True)
     # waitress.serve(app, host='0.0.0.0', port=5000)
 
 # added this to push without ssl
