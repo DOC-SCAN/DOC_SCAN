@@ -9,4 +9,4 @@ def resize_without_loosing_quality():
         foo = foo.resize(foo.size, Image.ANTIALIAS)
         foo.save(file, optimize=True, quality=30)
 
-# added this to push without auth
+# added this to push without ssl

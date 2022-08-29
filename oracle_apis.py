@@ -260,4 +260,4 @@ def opd_patient_details_with_date(date, m):
 if __name__ == '__main__':
     opd_patient_details_with_date("17/09/2013", "712596")
 
-# added this to push without auth
+# added this to push without ssl
