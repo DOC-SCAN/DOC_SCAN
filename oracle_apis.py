@@ -257,8 +257,7 @@ def opd_patient_details_with_date(date, m):
         return {"Error": "Either the record was not available or there was an error"}
 
 
-#def demo(mr):
-
+# def demo(mr):
 
 
 if __name__ == '__main__':
