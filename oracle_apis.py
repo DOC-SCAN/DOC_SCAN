@@ -257,7 +257,15 @@ def opd_patient_details_with_date(date, m):
         return {"Error": "Either the record was not available or there was an error"}
 
 
-# def demo(mr):
+def demo(m):
+    mr = m
+    mr = "'" + mr + "'"
+    dsn_tns = cx_Oracle.connect('ASAD_25510/asad#123@172.52.0.18:1521/sb_shifa.shifa.com.pk')
+    cursor = dsn_tns.cursor()
+    query = "select * from ODS.EMR_PATIENT_DEMOGRAPHICS where MR# = " + mr
+    for row in cursor.execute(query):
+        df = pd.DataFrame(row, index=['mr_number', 'MRNO', 'doctor_speciality',
+                                      'doctor_id', 'doctor_name'], )
 
 
 if __name__ == '__main__':

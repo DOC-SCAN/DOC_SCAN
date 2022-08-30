@@ -4,7 +4,7 @@ from driver_helper import main_scanner_driver, clear_crap
 from zipfile import ZipFile
 from os.path import basename
 import os
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import time
 import jpg_compress_mechanisms
 import oracle_apis
@@ -18,8 +18,9 @@ import clone_server
 
 compress = Compress()
 app = Flask(__name__)
+cors = CORS(app)
 compress.init_app(app)
-CORS(app)
+
 api = Api(app)
 jwt = JWTManager(app)
 app.config['JWT_SECRET_KEY'] = 'zb$@ic^Jg#aywFO1u9%shY7E66Z1cZnO&EK@9e$nwqTrLF#ph1'
@@ -31,19 +32,38 @@ collection = my_client["DOC_SCAN"]
 doc_id = collection['AUTH']
 
 
-@app.route("/docscan/login", methods=["POST", "GET"])
+@app.route("/docscan/login", methods=["POST"])
 def login():
     clone_server.clone_mongo()
-    login_details = request.get_json()  # store the json body request
-    user_from_db = doc_id.find_one({'USERNAME': login_details['USERNAME']})  # search for user in database
+    # login_username = request.form.get('username')
+    # login_password = request.form.get('password')
+    # print(login_username)
+    # print(login_password)
+    login_details = request.get_json()
+    print(login_details)
+    user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
+    print(user_from_db)
     if user_from_db:
+        print("in if")
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print(user_from_db['PASSWORD'])
         if bcrypt.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
-            return jsonify(access_token=access_token), 200
+            return jsonify({"access_token": access_token,
+                            "status": True
+                            }), 200, {"Access-Control-Allow-Origin": "http://localhost:3000"}
 
-    return jsonify({'msg': 'The username or password is incorrect'}), 401
+    return jsonify({'msg': 'The username or password is incorrect',
+                    "status": False
+                    }), 401
+
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Access-Control-Allow-Origin')
+#     response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response
 
 
 @app.route("/scan_zip_file")
