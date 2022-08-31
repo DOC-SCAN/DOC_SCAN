@@ -61,7 +61,7 @@ def login():
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Access-Control-Allow-Origin')
-#     response.headers.add('Access-Control-Allow-Origin', '*')
+    #     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
     return response
 
@@ -137,6 +137,14 @@ def Route_Function_Opd_with_date():
     mr = str(request.args.get('mr'))
     date = str(request.args.get('date'))
     route_object = oracle_apis.opd_patient_details_with_date(date, mr)
+    return route_object
+
+
+@app.route("/docscan/patient_demographics")
+@jwt_required()
+def Route_Function_Patient_Demographics():
+    mr = str(request.args.get('mrno'))
+    route_object = oracle_apis.demo(mr)
     return route_object
 
 

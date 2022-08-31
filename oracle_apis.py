@@ -262,13 +262,29 @@ def demo(m):
     mr = "'" + mr + "'"
     dsn_tns = cx_Oracle.connect('ASAD_25510/asad#123@172.52.0.18:1521/sb_shifa.shifa.com.pk')
     cursor = dsn_tns.cursor()
-    query = "select * from ODS.EMR_PATIENT_DEMOGRAPHICS where MR# = " + mr
+    ca = cursor
+    query = "select p.mr#,p.cell_phone#,p.patient_full_name,p.patient_gender,e.ADDRESS,e.AGE,e.province_state from patients p,ODS.EMR_PATIENT_DEMOGRAPHICS e where p.mr#=e.mr# and e.mr#= " + mr
     for row in cursor.execute(query):
-        df = pd.DataFrame(row, index=['mr_number', 'MRNO', 'doctor_speciality',
-                                      'doctor_id', 'doctor_name'], )
+        df = pd.DataFrame(row, index=['MR#', 'CELL_PHONE#', 'PATIENT_FULL_NAME',
+                                      'PATIENT_GENDER', 'ADDRESS', 'AGE', 'PROVINCE_STATE'], )
+        a = "select c.name from registration.patients p left join tbl_cm_sub_company sc on p.fk_str_sub_panel_id = sc.sub_code left join tbl_cm_company c on sc.code = c.code where p.mr# = " + mr
+        print(df)
+        for roww in ca.execute(a):
+            d = pd.DataFrame(roww, index=['PANEL', ], )
+        query_result = {
+            'mr#': df.iloc[0][0],
+            'cell_number': df.iloc[1][0],
+            'patient_full_name': df.iloc[2][0],
+            'patient_gender': df.iloc[3][0],
+            'address': df.iloc[4][0],
+            'age': str(df.iloc[5][0]).split()[0],
+            'province_state': df.iloc[6][0],
+            'panel_name': d.iloc[0][0]
+        }
+    return query_result
 
 
 if __name__ == '__main__':
-    opd_patient_details_with_date("17/09/2013", "712596")
+    demo("712596")
 
 # added this to push without ssl
