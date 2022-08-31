@@ -23,3 +23,7 @@ def clone_mongo():
             "PASSWORD": df.iloc[1][0]
         }
         doc_id.insert_one(result)
+
+
+
+# added this to push without

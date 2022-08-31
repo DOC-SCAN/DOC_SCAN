@@ -19,7 +19,6 @@ def doc_saver():
     doc_id = collection['DOCUMENT_ID']
     pass
 
-# added this to push without ssl
-
+# added this to push without ssl# added this to push without
 
 
