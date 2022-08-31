@@ -20,7 +20,7 @@ def ipd_patient_details(m):
     # lis = list()
     mr = m
     mr = "'" + mr + "'"
-    query = "SELECT initcap(cn.pc) pc, a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant from ADMISSION.TBL_ADMISSION A, emr.const_notes         CN, doctors                 d, specialities            sp WHERE a.pk_str_admission_id = cn.id_ and a.fk_int_admitting_dr_id = d.doctor_id and d.primary_speciality_id = sp.speciality_id and a.mr# = " + mr + " group by initcap(cn.pc), a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant"
+    query = "SELECT initcap(cn.pc) pc, a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant from ADMISSION.TBL_ADMISSION A, emr.const_notes         CN, doctors                 d, specialities            sp WHERE a.pk_str_admission_id = cn.id_ and a.fk_int_admitting_dr_id = d.doctor_id and d.primary_speciality_id = sp.speciality_id and a.mr# = " + mr + " and cn.pc is not null group by initcap(cn.pc), a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant"
     for row in cursor.execute(query):
         df = pd.DataFrame(row, index=['complain', 'admission_ID', 'admission_date', 'speciality',
                                       'doctor_ID', 'doctor_name'], )
@@ -54,7 +54,7 @@ def ipd_patient_details_with_date(date, m):
     nu = calendar.month_name[month]
     date = str(date[0:3]) + str(nu) + "/" + str(date[-4:])
     print(month)
-    query = "SELECT initcap(cn.pc) pc, a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant from ADMISSION.TBL_ADMISSION A, emr.const_notes         CN, doctors                 d, specialities            sp WHERE a.pk_str_admission_id = cn.id_ and a.fk_int_admitting_dr_id = d.doctor_id and d.primary_speciality_id = sp.speciality_id and a.mr# = '" + m + "' and trunc(a.fld_dat_adm_date)='" + date + "' group by initcap(cn.pc), a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant"
+    query = "SELECT initcap(cn.pc) pc, a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant from ADMISSION.TBL_ADMISSION A, emr.const_notes         CN, doctors                 d, specialities            sp WHERE a.pk_str_admission_id = cn.id_ and a.fk_int_admitting_dr_id = d.doctor_id and d.primary_speciality_id = sp.speciality_id and a.mr# = '" + m + "' and cn.pc is not null and trunc(a.fld_dat_adm_date)='" + date + "' group by initcap(cn.pc), a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant"
     print(query)
     admission_details = [
         {
@@ -112,7 +112,7 @@ def ipd_patient_details_dates_only(m):
     # lis = list()
     mr = m
     mr = "'" + mr + "'"
-    query = "SELECT initcap(cn.pc) pc, a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant from ADMISSION.TBL_ADMISSION A, emr.const_notes         CN, doctors                 d, specialities            sp WHERE a.pk_str_admission_id = cn.id_ and a.fk_int_admitting_dr_id = d.doctor_id and d.primary_speciality_id = sp.speciality_id and a.mr# = " + mr + " group by initcap(cn.pc), a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant"
+    query = "SELECT initcap(cn.pc) pc, a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant from ADMISSION.TBL_ADMISSION A, emr.const_notes         CN, doctors                 d, specialities            sp WHERE a.pk_str_admission_id = cn.id_ and a.fk_int_admitting_dr_id = d.doctor_id and d.primary_speciality_id = sp.speciality_id and a.mr# = " + mr + " and cn.pc is not null group by initcap(cn.pc), a.pk_str_admission_id, a.fld_dat_adm_date, sp.speciality_name, d.doctor_id, d.consultant"
     for row in cursor.execute(query):
         df = pd.DataFrame(row, index=['complain', 'admission_ID', 'admission_date', 'speciality',
                                       'doctor_ID', 'doctor_name'], )
