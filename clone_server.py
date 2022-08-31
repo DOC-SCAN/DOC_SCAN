@@ -10,7 +10,7 @@ def clone_mongo():
     doc_id = collection['AUTH']
     doc_id.drop()
 
-    dsn_tns = cx_Oracle.connect('ASAD_25510/asad#123@172.52.0.18:1521/sb_shifa.shifa.com.pk')
+    dsn_tns = cx_Oracle.connect('ASAD_25510/asad#123@prodhims.shifa.com.pk:1521/himsdb.shifa.com.pk')
     cursor = dsn_tns.cursor()
 
     query = "select cdr.api_users.username , cdr.api_users.password  from cdr.api_users"
