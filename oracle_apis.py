@@ -258,15 +258,16 @@ def opd_patient_details_with_date(date, m):
 
 
 def demo(m):
+    query_result = {}
     mr = m
     mr = "'" + mr + "'"
     dsn_tns = cx_Oracle.connect('ASAD_25510/asad#123@prodhims.shifa.com.pk:1521/himsdb.shifa.com.pk')
     cursor = dsn_tns.cursor()
     ca = cursor
-    query = "select p.mr#,p.cell_phone#,p.patient_full_name,p.patient_gender,e.ADDRESS,e.AGE,e.province_state from patients p,ODS.EMR_PATIENT_DEMOGRAPHICS e where p.mr#=e.mr# and e.mr#= " + mr
+    query = "select p.mr#,p.cell_phone#,p.patient_full_name,p.patient_gender,e.ADDRESS,e.AGE,e.DOB,e.province_state from patients p,ODS.EMR_PATIENT_DEMOGRAPHICS e where p.mr#=e.mr# and e.mr#= " + mr
     for row in cursor.execute(query):
         df = pd.DataFrame(row, index=['MR#', 'CELL_PHONE#', 'PATIENT_FULL_NAME',
-                                      'PATIENT_GENDER', 'ADDRESS', 'AGE', 'PROVINCE_STATE'], )
+                                      'PATIENT_GENDER', 'ADDRESS', 'AGE', 'DOB', 'PROVINCE_STATE'], )
         a = "select c.name from registration.patients p left join tbl_cm_sub_company sc on p.fk_str_sub_panel_id = sc.sub_code left join tbl_cm_company c on sc.code = c.code where p.mr# = " + mr
         print(df)
         for roww in ca.execute(a):
@@ -278,7 +279,8 @@ def demo(m):
             'patient_gender': df.iloc[3][0],
             'address': df.iloc[4][0],
             'age': str(df.iloc[5][0]).split()[0],
-            'province_state': df.iloc[6][0],
+            'dob': str(df.iloc[6][0])[:-9],
+            'province_state': df.iloc[7][0],
             'panel_name': d.iloc[0][0]
         }
     return query_result
