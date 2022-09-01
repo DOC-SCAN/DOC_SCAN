@@ -54,7 +54,7 @@ def main_scanner_driver():
     for ind, i in enumerate(images):
         img = {
             "id": ind,
-            "baseX64": i
+            "baseX64": i[:-1]
         }
         image_data.append(img)
         # me.name = str(ind)
