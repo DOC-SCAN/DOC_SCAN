@@ -1,3 +1,5 @@
+import json
+
 from flask import send_file, Flask, request, make_response, jsonify
 from flask_compress import Compress
 from driver_helper import main_scanner_driver, clear_crap
@@ -35,10 +37,6 @@ doc_id = collection['AUTH']
 @app.route("/docscan/login", methods=["POST"])
 def login():
     clone_server.clone_mongo()
-    # login_username = request.form.get('username')
-    # login_password = request.form.get('password')
-    # print(login_username)
-    # print(login_password)
     login_details = request.get_json()
     print(login_details)
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
@@ -148,13 +146,15 @@ def Route_Function_Patient_Demographics():
     return route_object
 
 
-@app.route("/save")
+@app.route("/save", methods=["POST"])
+@jwt_required()
 def route_function_save():
-    scanner_images = request.args.get("scanned_image")
-    patient_info = request.args.get("patient_info")
-    print(scanner_images)
-    print(patient_info)
-    return "GGWP"
+    data_to_be_saved = request.get_json()
+    # print(data_to_be_saved)
+    d = json.dumps(data_to_be_saved)
+    loaded = json.loads(d)
+    print(loaded["scannedImages"]["scannerImages"])
+    return "saved"
 
 
 @app.errorhandler(404)
@@ -163,7 +163,7 @@ def not_found(error):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', threaded=True)
+    app.run(debug=True, host='0.0.0.0', threaded=True, port=5000)
     # waitress.serve(app, host='0.0.0.0', port=5000)
 
 
