@@ -24,5 +24,3 @@ def clone_mongo():
         }
         doc_id.insert_one(result)
 
-
-

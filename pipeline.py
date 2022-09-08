@@ -1,5 +1,5 @@
 import json
-
+import base64
 from flask import send_file, Flask, request, make_response, jsonify
 from flask_compress import Compress
 from driver_helper import main_scanner_driver, clear_crap
@@ -17,6 +17,10 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from pymongo import MongoClient
 import bcrypt
 import clone_server
+import doc_id_from_mongo
+from PIL import Image
+import io
+import glob
 
 compress = Compress()
 app = Flask(__name__)
@@ -32,6 +36,7 @@ my_client = MongoClient()
 my_client = MongoClient('localhost', 27017)
 collection = my_client["DOC_SCAN"]
 doc_id = collection['AUTH']
+doc = collection['DOCUMENTS']
 
 
 @app.route("/docscan/login", methods=["POST"])
@@ -49,7 +54,8 @@ def login():
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
-                            }), 200, {"Access-Control-Allow-Origin": "http://localhost:3000"}
+                            }), 200, {"Access-Control-Allow-Origin": "http://localhost:3001",
+                                      "Access-Control-Allow-Origin": "http://localhost:3000"}
 
     return jsonify({'msg': 'The username or password is incorrect',
                     "status": False
@@ -154,7 +160,26 @@ def route_function_save():
     d = json.dumps(data_to_be_saved)
     loaded = json.loads(d)
     print(loaded["scannedImages"]["scannerImages"])
+    print(len(loaded["scannedImages"]["scannerImages"]))
+    for i in (loaded["scannedImages"]["scannerImages"]):
+        imgdata = base64.b64decode((i["baseX64"])[1:])
+        filename = str(
+            doc_id_from_mongo.doc_id_dispatcher()) + '.jpg'  # I assume you have a way of picking unique filenames
+        with open(filename, 'wb') as f:
+            f.write(imgdata)
+        print(i)
+        im = Image.open(filename)
+
+        image_bytes = io.BytesIO()
+        im.save(image_bytes, format='JPEG')
+
+        image = {
+            str(filename): image_bytes.getvalue()
+        }
+
+        image_id = doc.insert_one(image).inserted_id
     return "saved"
+    # for img in glob.glob("*.")
 
 
 @app.errorhandler(404)
@@ -165,5 +190,3 @@ def not_found(error):
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', threaded=True, port=5000)
     # waitress.serve(app, host='0.0.0.0', port=5000)
-
-
