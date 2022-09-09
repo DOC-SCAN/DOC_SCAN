@@ -14,10 +14,7 @@ def doc_id_dispatcher():
     return ret
 
 
-def doc_saver():
-    collection = my_client["DOC_SCAN"]
-    doc_id = collection['DOCUMENT_ID']
-    pass
+
 
 
 
