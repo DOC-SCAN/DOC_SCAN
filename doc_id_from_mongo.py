@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 
 my_client = MongoClient()
-my_client = MongoClient('localhost', 27017)
+my_client = MongoClient('172.29.97.25', 27017)
 
 
 def doc_id_dispatcher():

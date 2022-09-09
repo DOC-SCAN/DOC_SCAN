@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 def clone_mongo():
     my_client = MongoClient()
-    my_client = MongoClient('localhost', 27017)
+    my_client = MongoClient('172.29.97.25', 27017)
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
     doc_id.drop()

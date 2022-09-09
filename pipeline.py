@@ -33,7 +33,7 @@ app.config['JWT_SECRET_KEY'] = 'zb$@ic^Jg#aywFO1u9%shY7E66Z1cZnO&EK@9e$nwqTrLF#p
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
 
 my_client = MongoClient()
-my_client = MongoClient('localhost', 27017)
+my_client = MongoClient('172.29.97.25', 27017)
 collection = my_client["DOC_SCAN"]
 doc_id = collection['AUTH']
 doc = collection['DOCUMENTS']
