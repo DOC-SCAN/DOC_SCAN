@@ -54,8 +54,8 @@ def login():
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
-                            }), 200, {"Access-Control-Allow-Origin": "http://localhost:3001",
-                                      "Access-Control-Allow-Origin": "http://localhost:3000"}
+                            }), 200, {"Access-Control-Allow-Origin": '*'}
+            # "Access-Control-Allow-Origin": "http://localhost:3000"}
 
     return jsonify({'msg': 'The username or password is incorrect',
                     "status": False
@@ -179,7 +179,8 @@ def route_function_save():
 
         image_id = doc.insert_one(image).inserted_id
     return "saved"
-    # for img in glob.glob("*.")
+    for img in glob.glob("*.jpg"):
+        os.remove(img)
 
 
 @app.errorhandler(404)
