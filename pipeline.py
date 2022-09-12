@@ -33,7 +33,7 @@ app.config['JWT_SECRET_KEY'] = 'zb$@ic^Jg#aywFO1u9%shY7E66Z1cZnO&EK@9e$nwqTrLF#p
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
 
 my_client = MongoClient()
-my_client = MongoClient('172.29.97.25', 27017)
+my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
 collection = my_client["DOC_SCAN"]
 doc_id = collection['AUTH']
 doc = collection['DOCUMENTS']
@@ -159,28 +159,46 @@ def route_function_save():
     # print(data_to_be_saved)
     d = json.dumps(data_to_be_saved)
     loaded = json.loads(d)
-    print(loaded["scannedImages"]["scannerImages"])
-    print(len(loaded["scannedImages"]["scannerImages"]))
+    print(loaded)
     for i in (loaded["scannedImages"]["scannerImages"]):
         imgdata = base64.b64decode((i["baseX64"])[1:])
         filename = str(
-            doc_id_from_mongo.doc_id_dispatcher()) + '.jpg'  # I assume you have a way of picking unique filenames
+            doc_id_from_mongo.doc_id_dispatcher()) + '.jpg'
         with open(filename, 'wb') as f:
             f.write(imgdata)
-        print(i)
         im = Image.open(filename)
 
         image_bytes = io.BytesIO()
         im.save(image_bytes, format='JPEG')
 
         image = {
-            str(filename): image_bytes.getvalue()
+            'doc_id': str(filename),
+            'doc': image_bytes.getvalue(),
+            'mrno': loaded["mrno"],
+            'type': loaded["type"],
+            'visit_id_op': loaded["visit_id_op"],
+            'doctor_id_op': loaded["doctor_id_op"],
+            'doctor_speciality_op': loaded["doctor_speciality_op"],
+            'visit_date_op': loaded["visit_date_op"],
+            'admission_id': loaded["admission_id"],
+            'admission_date_ip': loaded["admission_date_ip"],
+            'complain_ip': loaded["complain_ip"],
+            'doctor_id_ip': loaded["doctor_id_ip"],
+            'doctor_speciality_ip': loaded["doctor_speciality_ip"],
+            'class': None,
+            'ocr': None,
+            'notes': None,
+            'misclassified': False,
+            'marked_as_fav_by_user': None  # this will be an array
+
         }
 
         image_id = doc.insert_one(image).inserted_id
     return "saved"
     for img in glob.glob("*.jpg"):
+        print("removing " + img)
         os.remove(img)
+
 
 
 @app.errorhandler(404)

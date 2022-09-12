@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 
 my_client = MongoClient()
-my_client = MongoClient('172.29.97.25', 27017)
+my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
 
 
 def doc_id_dispatcher():
