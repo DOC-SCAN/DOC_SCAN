@@ -224,7 +224,7 @@ def opd_patient_details_with_date(date, m):
         {
             'visit_id': u'',
             'visit_date': u'',
-            'doctor_speciality': u'',
+            'speciality': u'',
             'doctor_id': u'',
             'doctor_name': u''
         }
