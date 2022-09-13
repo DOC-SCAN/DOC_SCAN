@@ -94,6 +94,11 @@ def route_function_base():
     return route_object
 
 
+@app.route("/welcome")
+def route_function_base():
+    return "<h1>WELCOME API'S ARE NOW RUNNING :)<h1>"
+
+
 @app.route("/ipd/all_details")
 @jwt_required()
 def Route_Function_Ipd():
