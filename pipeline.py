@@ -94,7 +94,7 @@ def route_function_base():
     return route_object
 
 
-@app.route("/welcome")
+@app.route("/")
 def welcs():
     return "<h1>WELCOME API'S ARE NOW RUNNING :)<h1>"
 
