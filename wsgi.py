@@ -1,4 +1,4 @@
-from pipeline import app as application
+from pipeline import app
 
 if __name__ == '__main__':
-    application.run()
+    app.run()

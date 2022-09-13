@@ -16,6 +16,7 @@ from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from pymongo import MongoClient
 import bcrypt
+import bcrypt as bc
 import clone_server
 import doc_id_from_mongo
 from PIL import Image
@@ -50,7 +51,7 @@ def login():
         print("in if")
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print(user_from_db['PASSWORD'])
-        if bcrypt.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
+        if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
