@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 
 def clone_mongo():
-    my_client = MongoClient()
+    my_client = MongoClient(connect=False)
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
