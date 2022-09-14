@@ -47,6 +47,7 @@ def login():
     print(login_details)
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
     print(user_from_db)
+    print("--------------------")
     if user_from_db:
         print("in if")
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
