@@ -26,7 +26,6 @@ import glob
 compress = Compress()
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-bcrypt = Bcrypt(app)
 cors = CORS(app)
 compress.init_app(app)
 
@@ -54,7 +53,6 @@ def login():
         print("in if")
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print(user_from_db['PASSWORD'])
-        bcrypt = Bcrypt(app)
         if bcrypt.check_password_hash(user_from_db['PASSWORD'].encode("utf-8"), encrpted_password):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
