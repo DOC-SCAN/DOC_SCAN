@@ -49,9 +49,10 @@ def login():
     print(login_details)
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
     print(user_from_db)
+    print("ASAD")
     if user_from_db:
         print("in if")
-        encrpted_password = login_details['PASSWORD'].encode("utf-8")
+        encrpted_password = login_details['PASSWORD']#.encode("utf-8")
         print(user_from_db['PASSWORD'])
         if bcrypt.check_password_hash(user_from_db['PASSWORD'], encrpted_password): #.encode("utf-8")
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
