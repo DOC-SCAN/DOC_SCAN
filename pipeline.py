@@ -48,6 +48,9 @@ def login():
     login_details = request.get_json()
     print(login_details)
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
+    print("ASAD")
+    print("ASAD")
+    print("ASAD")
     print(user_from_db)
     print("ASAD")
     if user_from_db:
