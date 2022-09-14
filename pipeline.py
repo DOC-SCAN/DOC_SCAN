@@ -15,7 +15,7 @@ import datetime
 from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from pymongo import MongoClient
-from flask_bcrypt import Bcrypt
+import bcrypt
 import bcrypt as bc
 import clone_server
 import doc_id_from_mongo
@@ -25,7 +25,6 @@ import glob
 
 compress = Compress()
 app = Flask(__name__)
-bcrypt = Bcrypt(app)
 cors = CORS(app)
 compress.init_app(app)
 
@@ -49,15 +48,15 @@ def login():
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
     print(user_from_db)
     if user_from_db:
-        encrpted_password = login_details['PASSWORD']  # .encode("utf-8")
-        h = bc.hashpw(encrpted_password.encode("utf-8"), bc.gensalt(10))
-        print("FORM PASS: " + str(h))
-        print("FROM DB: " + str(user_from_db['PASSWORD'].encode("utf-8")))
-        if bcrypt.check_password_hash(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):  #
+        print("in if")
+        encrpted_password = login_details['PASSWORD'].encode("utf-8")
+        print(user_from_db['PASSWORD'])
+        if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
                             }), 200, {"Access-Control-Allow-Origin": '*'}
+            # "Access-Control-Allow-Origin": "http://localhost:3000"}
 
     return jsonify({'msg': 'The username or password is incorrect',
                     "status": False
