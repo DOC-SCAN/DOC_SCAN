@@ -51,7 +51,7 @@ def login():
         print("in if")
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print(user_from_db['PASSWORD'])
-        if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
+        if bc.checkpw(encrpted_password, user_from_db['PASSWORD']):#.encode("utf-8")):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
