@@ -16,7 +16,7 @@ from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
-# import bcrypt
+import bcrypt
 import clone_server
 import doc_id_from_mongo
 from PIL import Image
@@ -50,7 +50,7 @@ def login():
     print(user_from_db)
     if user_from_db:
         encrpted_password = login_details['PASSWORD']  # .encode("utf-8")
-        h = bcrypt.generate_password_hash(encrpted_password, 10)
+        h = bcrypt.hashpw(encrpted_password,10)
         print("FORM PASS: " + str(h))
         print("FROM DB: " + str(user_from_db['PASSWORD'].encode("utf-8")))
         if bcrypt.check_password_hash(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):  #
