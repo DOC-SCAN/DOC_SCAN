@@ -205,11 +205,10 @@ def route_function_save():
         doc_id = collection['AUTH']
         doc = collection['DOCUMENTS']
         image_id = doc.insert_one(image).inserted_id
-    return "saved"
     for img in glob.glob("*.jpg"):
         print("removing " + img)
         os.remove(img)
-
+    return "saved"
 
 @app.errorhandler(404)
 def not_found(error):
