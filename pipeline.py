@@ -33,18 +33,17 @@ jwt = JWTManager(app)
 app.config['JWT_SECRET_KEY'] = 'zb$@ic^Jg#aywFO1u9%shY7E66Z1cZnO&EK@9e$nwqTrLF#ph1'
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
 
-my_client = MongoClient()
-my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
-collection = my_client["DOC_SCAN"]
-doc_id = collection['AUTH']
-doc = collection['DOCUMENTS']
-
 
 @app.route("/docscan/login", methods=["POST"])
 def login():
     clone_server.clone_mongo()
     login_details = request.get_json()
     print(login_details)
+    my_client = MongoClient()
+    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    collection = my_client["DOC_SCAN"]
+    doc_id = collection['AUTH']
+    doc = collection['DOCUMENTS']
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
     print(user_from_db)
     print("--------------------")
@@ -200,7 +199,11 @@ def route_function_save():
             'marked_as_fav_by_user': None  # this will be an array
 
         }
-
+        my_client = MongoClient()
+        my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+        collection = my_client["DOC_SCAN"]
+        doc_id = collection['AUTH']
+        doc = collection['DOCUMENTS']
         image_id = doc.insert_one(image).inserted_id
     return "saved"
     for img in glob.glob("*.jpg"):
