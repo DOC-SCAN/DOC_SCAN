@@ -29,7 +29,6 @@ bcrypt = Bcrypt(app)
 cors = CORS(app)
 compress.init_app(app)
 
-
 api = Api(app)
 jwt = JWTManager(app)
 app.config['JWT_SECRET_KEY'] = 'zb$@ic^Jg#aywFO1u9%shY7E66Z1cZnO&EK@9e$nwqTrLF#ph1'
@@ -48,21 +47,17 @@ def login():
     login_details = request.get_json()
     print(login_details)
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
-    print("ASAD")
-    print("ASAD")
-    print("ASAD")
     print(user_from_db)
-    print("ASAD")
     if user_from_db:
-        print("in if")
-        encrpted_password = login_details['PASSWORD']#.encode("utf-8")
-        print(user_from_db['PASSWORD'])
-        if bcrypt.check_password_hash(user_from_db['PASSWORD'].encode("utf-8"), encrpted_password): #
+        encrpted_password = login_details['PASSWORD']  # .encode("utf-8")
+        h = bcrypt.generate_password_hash(encrpted_password, 10)
+        print("FORM PASS: " + str(h))
+        print("FROM DB: " + str(user_from_db['PASSWORD'].encode("utf-8")))
+        if bcrypt.check_password_hash(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):  #
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
                             }), 200, {"Access-Control-Allow-Origin": '*'}
-            # "Access-Control-Allow-Origin": "http://localhost:3000"}
 
     return jsonify({'msg': 'The username or password is incorrect',
                     "status": False
