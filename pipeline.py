@@ -48,16 +48,12 @@ def login():
     login_details = request.get_json()
     print(login_details)
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
-    print("ASAD")
-    print("ASAD")
-    print("ASAD")
     print(user_from_db)
-    print("ASAD")
     if user_from_db:
         print("in if")
-        encrpted_password = login_details['PASSWORD']#.encode("utf-8")
+        encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print(user_from_db['PASSWORD'])
-        if 1:#bcrypt.check_password_hash(user_from_db['PASSWORD'].encode("utf-8"), encrpted_password): #
+        if bcrypt.check_password_hash(user_from_db['PASSWORD'].encode("utf-8"), encrpted_password):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
