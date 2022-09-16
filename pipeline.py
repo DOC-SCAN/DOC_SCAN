@@ -51,7 +51,7 @@ def login():
         bc.gensalt()
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print("PASS FROM USER: " + encrpted_password)
-        print("PASS FROM DB:" + user_from_db['PASSWORD'])
+        print("PASS FROM DB:" + user_from_db['PASSWORD'].encode("utf-8"))
         if bc.hashpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")) == user_from_db['PASSWORD'].encode(
                 "utf-8"):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
