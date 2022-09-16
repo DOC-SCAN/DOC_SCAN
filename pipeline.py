@@ -52,7 +52,7 @@ def login():
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print(encrpted_password)
         print(user_from_db['PASSWORD'])
-        if bc.checkpw("$2b$10$v1t3ouVjEdImQ9acJqtSHuUtxAgtd0Ttn/yFVtD.qSckU4iLbfr06".encode("utf-8"), "123".encode("utf-8")):
+        if bc.checkpw("123".encode("utf-8"), "$2b$10$v1t3ouVjEdImQ9acJqtSHuUtxAgtd0Ttn/yFVtD.qSckU4iLbfr06".encode("utf-8")):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
