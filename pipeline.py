@@ -48,16 +48,18 @@ def login():
     print(user_from_db)
     if user_from_db:
         print("-------------------------------------------------------------------------")
-        bc.gensalt()
+        bc.gensalt(10)
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
-        print("PASS FROM USER: " + encrpted_password)
-        print("PASS FROM DB:" + user_from_db['PASSWORD'].encode("utf-8"))
+        print(encrpted_password)
+        print(user_from_db['PASSWORD'])
         if bc.hashpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")) == user_from_db['PASSWORD'].encode(
                 "utf-8"):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
                             }), 200, {"Access-Control-Allow-Origin": '*'}
+            # "Access-Control-Allow-Origin": "http://localhost:3000"}
+
     return jsonify({'msg': 'The username or password is incorrect',
                     "status": False
                     }), 401
