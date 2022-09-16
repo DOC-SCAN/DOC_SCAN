@@ -52,7 +52,8 @@ def login():
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print(encrpted_password)
         print(user_from_db['PASSWORD'])
-        if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
+        if bc.hashpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")) == user_from_db['PASSWORD'].encode(
+                "utf-8"):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
@@ -209,6 +210,7 @@ def route_function_save():
         print("removing " + img)
         os.remove(img)
     return "saved"
+
 
 @app.errorhandler(404)
 def not_found(error):
