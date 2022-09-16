@@ -46,20 +46,18 @@ def login():
     doc = collection['DOCUMENTS']
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
     print(user_from_db)
-    print("--------------------")
     if user_from_db:
-        print("in if")
+        print("-------------------------------------------------------------------------")
+        bc.gensalt()
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
-        print(encrpted_password)
-        print(user_from_db['PASSWORD'])
+        print("PASS FROM USER: " + encrpted_password)
+        print("PASS FROM DB:" + user_from_db['PASSWORD'])
         if bc.hashpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")) == user_from_db['PASSWORD'].encode(
                 "utf-8"):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
                             "status": True
                             }), 200, {"Access-Control-Allow-Origin": '*'}
-            # "Access-Control-Allow-Origin": "http://localhost:3000"}
-
     return jsonify({'msg': 'The username or password is incorrect',
                     "status": False
                     }), 401
