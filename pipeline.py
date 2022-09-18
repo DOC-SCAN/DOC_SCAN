@@ -15,7 +15,6 @@ import datetime
 from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from pymongo import MongoClient
-import bcrypt
 import bcrypt as bc
 import clone_server
 import doc_id_from_mongo
@@ -48,7 +47,6 @@ def login():
     print(user_from_db)
     if user_from_db:
         print("-------------------------------------------------------------------------")
-        bc.gensalt(10, b"2a")
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print(encrpted_password)
         print(user_from_db['PASSWORD'])
@@ -57,7 +55,6 @@ def login():
             return jsonify({"access_token": access_token,
                             "status": True
                             }), 200, {"Access-Control-Allow-Origin": '*'}
-            # "Access-Control-Allow-Origin": "http://localhost:3000"}
 
     return jsonify({'msg': 'The username or password is incorrect',
                     "status": False
