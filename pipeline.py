@@ -21,6 +21,7 @@ import doc_id_from_mongo
 from PIL import Image
 import io
 import glob
+import os
 
 compress = Compress()
 app = Flask(__name__)
@@ -35,7 +36,6 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
 
 @app.route("/docscan/login", methods=["POST"])
 def login():
-    clone_server.clone_mongo()
     login_details = request.get_json()
     print(login_details)
     my_client = MongoClient()
@@ -214,5 +214,6 @@ def not_found(error):
 
 
 if __name__ == "__main__":
+    clone_server.initiate_mongo_devil()
     app.run(debug=True, host='0.0.0.0', threaded=True, port=5000)
     # waitress.serve(app, host='0.0.0.0', port=5000)
