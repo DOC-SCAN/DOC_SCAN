@@ -2,10 +2,12 @@ import cx_Oracle
 import pandas as pd
 from pymongo import MongoClient
 import multiprocessing
+import time
 
 
 def clone_mongo():
     while True:
+        time.sleep(10)
         my_client = MongoClient(connect=False)
         my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
         collection = my_client["DOC_SCAN"]
