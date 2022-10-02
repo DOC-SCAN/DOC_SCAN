@@ -7,12 +7,13 @@ import time
 
 def clone_mongo():
     while True:
-        time.sleep(10)
+        time.sleep(3)
         my_client = MongoClient(connect=False)
         my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
         collection = my_client["DOC_SCAN"]
         doc_id = collection['AUTH']
         doc_id.drop()
+        time.sleep(1.5)
 
         dsn_tns = cx_Oracle.connect('ASAD_25510/asad#123@prodhims.shifa.com.pk:1521/himsdb.shifa.com.pk')
         cursor = dsn_tns.cursor()

@@ -176,7 +176,7 @@ def route_function_save():
         im.save(image_bytes, format='JPEG')
 
         image = {
-            'doc_id': str(filename),
+            'doc_id': int(str(filename).split('.')[0]),
             'doc': image_bytes.getvalue(),
             'mrno': loaded["mrno"],
             'type': loaded["type"],

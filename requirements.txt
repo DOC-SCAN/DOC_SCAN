@@ -1,0 +1,11 @@
+cx_Oracle
+Flask~=2.2.2
+Flask_Compress
+Flask_Cors
+Flask_JWT_Extended
+Flask_RESTful
+pandas~=1.4.3
+Pillow~=9.2.0
+pymongo~=4.2.0
+bcrypt~=4.0.0
+pytesseract~=0.3.10
