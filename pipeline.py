@@ -209,6 +209,13 @@ def route_function_save():
     return "saved"
 
 
+@app.route("/employee_data", methods=["GET"])
+@jwt_required()
+def get_emp_data():
+    route_object = oracle_apis.mrd_emp_data()
+    return route_object
+
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
@@ -216,6 +223,5 @@ def not_found(error):
 
 if __name__ == "__main__":
     clone_server.initiate_mongo_devil()
-    itd()
     app.run(debug=True, host='0.0.0.0', threaded=True, port=5000)
     # waitress.serve(app, host='0.0.0.0', port=5000)

@@ -301,19 +301,21 @@ def mrd_emp_data():
         f.write(df.iloc[2][0])
         f.close()
         # now we will get the base 64 of the image here
-        with open("temp/"+df.iloc[0][0], "rb") as image_file:
+        with open("temp/" + df.iloc[0][0], "rb") as image_file:
             encoded_string = base64.b64encode(image_file.read())
             bs64 = encoded_string
             tp = {
-                'emp_id': df.iloc[0][0],
+                'emp_id': (df.iloc[0][0]).replace(".jpg", ''),
                 'name': df.iloc[1][0],
-                'base64': bs64
+                'base64': bs64.decode("utf-8"),
+                'department': "MEDICAL RECORDS",
+                'email': ''
             }
             emp_details.append(tp)
 
     cc('temp')
-
     print(emp_details)
+    return emp_details
 
 
 if __name__ == '__main__':

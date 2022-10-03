@@ -28,9 +28,14 @@ def get_multi_vector_single_using_te():
 
 
 def initiate_tes_devil():
-    tm = multiprocessing.Process(target=get_multi_vector_single_using_te(), daemon=True)
+    tm = multiprocessing.Process(target=get_multi_vector_single_using_te, daemon=True)
     tm.start()
 
 
+def looper():
+    while True:
+        get_multi_vector_single_using_te()
+
+
 if __name__ == '__main__':
-    get_multi_vector_single_using_te()
+    looper()
