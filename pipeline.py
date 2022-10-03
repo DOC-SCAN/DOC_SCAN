@@ -22,6 +22,7 @@ from PIL import Image
 import io
 import glob
 import os
+from Mongo_APIS import initiate_tes_devil as itd
 
 compress = Compress()
 app = Flask(__name__)
@@ -215,5 +216,6 @@ def not_found(error):
 
 if __name__ == "__main__":
     clone_server.initiate_mongo_devil()
+    itd()
     app.run(debug=True, host='0.0.0.0', threaded=True, port=5000)
     # waitress.serve(app, host='0.0.0.0', port=5000)
