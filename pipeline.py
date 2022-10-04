@@ -22,7 +22,8 @@ from PIL import Image
 import io
 import glob
 import os
-from Mongo_APIS import initiate_tes_devil as itd
+from weak_classifier import give_classes_data as gd
+from Mongo_APIS import get_by_mr as gmr
 
 compress = Compress()
 app = Flask(__name__)
@@ -214,6 +215,22 @@ def route_function_save():
 def get_emp_data():
     route_object = oracle_apis.mrd_emp_data()
     return route_object
+
+
+@app.route("/get_classes", methods=["GET"])
+@jwt_required()
+def get_classes():
+    route_object = gd()
+    return route_object
+
+
+@app.route("/get_class_images", methods=["GET"])
+@jwt_required()
+def get_images():
+    mrno = str(request.args.get('mr'))
+    id = str(request.args.get('id'))
+    route_obj = gmr(mrno, id)
+    return route_obj
 
 
 @app.errorhandler(404)
