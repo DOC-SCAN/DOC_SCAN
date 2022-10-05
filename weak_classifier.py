@@ -78,6 +78,27 @@ ina = "INITIAL NURSING ASSESSMENT"
 ina1 = "RECEIVING NOTES"
 ina2 = "RESPS per minute"
 ina3 = "Repeat AEWS SCORE"
+td = "TRIAGE DOCUMENT"
+td1 = "EMERGENCY DEPARTMENT"
+td2 = "EMERGENCY SEVERITY"
+td3 = "INDEX (ESI)"
+td4 = "SCREENING TOOL"
+nass = "NEUROLOGICAL ASSESSMENT"
+nass1 = "Mild Weakness"
+nass2 = "Spastic Flexion"
+nass3 = "Record the response"
+nass4 = "Closed by Swelling"
+poo = "PHYSICIAN'S ORDERS"
+poo1 = "PHYSICIANS ORDERS"
+poo2 = "Physicians Orders"
+poo3 = "Physician's Orders"
+poo4 = "All intravenous orders"
+poo5 = "Renewal orders"
+peds = "Pediatric Early Warning Score"
+peds1 = "Normal Vital Signs"
+peds2 = "Age of Pediatric Patient"
+peds3 = "Newborn"
+
 
 def classify(image_path):
     for filename in glob.glob(image_path):
@@ -95,6 +116,46 @@ def classify(image_path):
             return 'BED SIDE PROCEDURE'
         elif g in check:
             return 'BED SIDE PROCEDURE'
+        elif td in check:
+            return 'TRIAGE DOCUMENT'
+        elif td1 in check:
+            return 'TRIAGE DOCUMENT'
+        elif td2 in check:
+            return 'TRIAGE DOCUMENT'
+        elif td3 in check:
+            return 'TRIAGE DOCUMENT'
+        elif td4 in check:
+            return 'TRIAGE DOCUMENT'
+        elif poo in check:
+            return "PHYSICIAN'S ORDERS"
+        elif poo1 in check:
+            return "PHYSICIAN'S ORDERS"
+        elif poo2 in check:
+            return "PHYSICIAN'S ORDERS"
+        elif poo3 in check:
+            return "PHYSICIAN'S ORDERS"
+        elif poo4 in check:
+            return "PHYSICIAN'S ORDERS"
+        elif poo5 in check:
+            return "PHYSICIAN'S ORDERS"
+        elif peds in check:
+            return "Pediatric Early Warning Score"
+        elif peds1 in check:
+            return "Pediatric Early Warning Score"
+        elif peds2 in check:
+            return "Pediatric Early Warning Score"
+        elif peds3 in check:
+            return "Pediatric Early Warning Score"
+        elif nass in check:
+            return 'NEUROLOGICAL ASSESSMENT'
+        elif nass1 in check:
+            return 'NEUROLOGICAL ASSESSMENT'
+        elif nass2 in check:
+            return 'NEUROLOGICAL ASSESSMENT'
+        elif nass3 in check:
+            return 'NEUROLOGICAL ASSESSMENT'
+        elif nass4 in check:
+            return 'NEUROLOGICAL ASSESSMENT'
         elif ina in check:
             return 'INITIAL NURSING ASSESSMENT'
         elif ina1 in check:

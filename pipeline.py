@@ -40,11 +40,9 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
 def login():
     login_details = request.get_json()
     print(login_details)
-    my_client = MongoClient()
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
-    doc = collection['DOCUMENTS']
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
     print(user_from_db)
     if user_from_db:
@@ -195,8 +193,8 @@ def route_function_save():
             'ocr': None,
             'notes': None,
             'misclassified': False,
-            'marked_as_fav_by_user': None  # this will be an array
-
+            'marked_as_fav_by_user': None,  # this will be an array
+            'main_type': None
         }
         my_client = MongoClient()
         my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
@@ -239,6 +237,6 @@ def not_found(error):
 
 
 if __name__ == "__main__":
-    clone_server.initiate_mongo_devil()
+    #clone_server.initiate_mongo_devil()
     app.run(debug=True, host='0.0.0.0', threaded=True, port=5000)
     # waitress.serve(app, host='0.0.0.0', port=5000)
