@@ -237,6 +237,6 @@ def not_found(error):
 
 
 if __name__ == "__main__":
-    #clone_server.initiate_mongo_devil()
+    # clone_server.initiate_mongo_devil()
     app.run(debug=True, host='0.0.0.0', threaded=True, port=5000)
     # waitress.serve(app, host='0.0.0.0', port=5000)
