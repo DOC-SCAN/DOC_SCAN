@@ -78,15 +78,15 @@ def ipd_patient_details_with_date(date, m):
         df = pd.DataFrame(row, index=['complain', 'admission_ID', 'admission_date', 'speciality',
                                       'doctor_ID', 'doctor_name'], )
         print(df)
-        d = str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9]
-        dd = d[5:7]
-        d = (str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
-            (df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[:-6]
+        # d = str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9]
+        # dd = d[5:7]
+        # d = (str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
+        #     (df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[:-6]
 
         query_result = {
             'complain': df.iloc[0][0],
             'admission_ID': df.iloc[1][0],
-            'admission_date': d,
+            'admission_date': df.iloc[2][0],
             'speciality': df.iloc[3][0],
             'doctor_ID': df.iloc[4][0],
             'doctor_name': df.iloc[5][0]
