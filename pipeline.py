@@ -227,7 +227,7 @@ def route_function_bulk_save():
 
         image_bytes = io.BytesIO()
         im.save(image_bytes, format='JPEG')
-
+        #img array
         image = {
             'doc_id': int(str(filename).split('.')[0]),
             'doc': image_bytes.getvalue(),
