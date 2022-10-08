@@ -61,6 +61,32 @@ def login():
                     }), 401
 
 
+@app.route("/docscan/scanner/login", methods=["POST"])
+def login_rolebase():
+    login_details = request.get_json()
+    print(login_details)
+    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    collection = my_client["DOC_SCAN"]
+    doc_id = collection['VIEWER_AUTH']
+    user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
+    print(user_from_db)
+    if user_from_db:
+        print("-------------------------------------------------------------------------")
+        encrpted_password = login_details['PASSWORD'].encode("utf-8")
+        print(encrpted_password)
+        print(user_from_db['PASSWORD'])
+        if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
+            access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
+            return jsonify({"access_token": access_token,
+                            "access_token": user_from_db['is_admin'],
+                            "status": True
+                            }), 200, {"Access-Control-Allow-Origin": '*'}
+
+    return jsonify({'msg': 'The username or password is incorrect',
+                    "status": False
+                    }), 401
+
+
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Access-Control-Allow-Origin')
