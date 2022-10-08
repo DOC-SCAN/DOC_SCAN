@@ -194,7 +194,51 @@ def route_function_save():
             'notes': None,
             'misclassified': False,
             'marked_as_fav_by_user': None,  # this will be an array
-            'main_type': None
+            'main_type': None,
+            'is_bulk': False
+        }
+        my_client = MongoClient()
+        my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+        collection = my_client["DOC_SCAN"]
+        doc_id = collection['AUTH']
+        doc = collection['DOCUMENTS']
+        image_id = doc.insert_one(image).inserted_id
+    for img in glob.glob("*.jpg"):
+        print("removing " + img)
+        os.remove(img)
+    return "saved"
+
+
+@app.route("/bulk/save", methods=["POST"])
+@jwt_required()
+def route_function_bulk_save():
+    data_to_be_saved = request.get_json()
+    # print(data_to_be_saved)
+    d = json.dumps(data_to_be_saved)
+    loaded = json.loads(d)
+    print(loaded)
+    for i in (loaded["scannedImages"]["scannerImages"]):
+        imgdata = base64.b64decode((i["baseX64"])[1:])
+        filename = str(
+            doc_id_from_mongo.doc_id_dispatcher()) + '.jpg'
+        with open(filename, 'wb') as f:
+            f.write(imgdata)
+        im = Image.open(filename)
+
+        image_bytes = io.BytesIO()
+        im.save(image_bytes, format='JPEG')
+
+        image = {
+            'doc_id': int(str(filename).split('.')[0]),
+            'doc': image_bytes.getvalue(),
+            'mrno': loaded["mrno"],
+            'class': None,
+            'ocr': None,
+            'notes': None,
+            'misclassified': False,
+            'marked_as_fav_by_user': None,  # this will be an array
+            'main_type': None,
+            'is_bulk': True
         }
         my_client = MongoClient()
         my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
