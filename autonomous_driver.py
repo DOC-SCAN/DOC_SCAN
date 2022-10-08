@@ -26,4 +26,5 @@ def after_request(response):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', threaded=True, port=7000)
+    #context = ('local.crt', 'local.key')
+    app.run(debug=True, host='0.0.0.0', threaded=True, port=7000)#, ssl_context=context)

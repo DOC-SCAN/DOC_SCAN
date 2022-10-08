@@ -119,7 +119,7 @@ def route_function_base():
     return route_object
 
 
-@app.route("/")
+@app.route("/home")
 def welcs():
     return "<h1>WELCOME API'S ARE NOW RUNNING :)<h1>"
 
