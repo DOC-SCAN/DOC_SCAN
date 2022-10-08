@@ -27,15 +27,15 @@ def ipd_patient_details(m):
         df = pd.DataFrame(row, index=['complain', 'admission_ID', 'admission_date', 'speciality',
                                       'doctor_ID', 'doctor_name'], )
         print(df)
-        d = str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9]
-        dd = d[5:7]
-        d = (str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
-            (df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[:-6]
+        # d = str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9]
+        # dd = d[5:7]
+        # d = (str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
+        #     (df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[:-6]
 
         query_result = {
             'complain': df.iloc[0][0],
             'admission_ID': df.iloc[1][0],
-            'admission_date': d,
+            'admission_date': df.iloc[2][0],
             'speciality': df.iloc[3][0],
             'doctor_ID': df.iloc[4][0],
             'doctor_name': df.iloc[5][0]
@@ -119,13 +119,13 @@ def ipd_patient_details_dates_only(m):
         df = pd.DataFrame(row, index=['complain', 'admission_ID', 'admission_date', 'speciality',
                                       'doctor_ID', 'doctor_name'], )
         # print(df)
-        d = str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9]
-        dd = d[5:7]
-        d = (str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
-            (df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[:-6]
+        # d = str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9]
+        # dd = d[5:7]
+        # d = (str(pd.to_datetime((df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
+        #     (df.iloc[2][0]), format="%D/%M/%Y"))[:-9])[:-6]
         query_result = {
             'admission_ID': df.iloc[1][0],
-            'admission_date': d
+            'admission_date': df.iloc[2][0]
         }
         admission_details.append(query_result)
     admission_details.pop(0)
@@ -156,13 +156,13 @@ def opd_patient_details(m):
         df = pd.DataFrame(row, index=['visit_id', 'visit_date', 'speciality', 'doctor_ID',
                                       'doctor_name'], )
         print(df)
-        d = str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9]
-        dd = d[5:7]
-        d = (str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
-            (df.iloc[1][0]), format="%m/%d/%y"))[:-9])[:-6]
+        # d = str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9]
+        # dd = d[5:7]
+        # d = (str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
+        #     (df.iloc[1][0]), format="%m/%d/%y"))[:-9])[:-6]
         query_result = {
             'visit_id': df.iloc[0][0],
-            'visit_date': d,
+            'visit_date': df.iloc[1][0],
             'speciality': df.iloc[2][0],
             'doctor_ID': df.iloc[3][0],
             'doctor_name': df.iloc[4][0]
@@ -193,13 +193,13 @@ def opd_patient_details_dates_only(m):
         df = pd.DataFrame(row, index=['visit_id', 'visit_date', 'speciality', 'doctor_ID',
                                       'doctor_name'], )
         print(df)
-        d = str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9]
-        dd = d[5:7]
-        d = (str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
-            (df.iloc[1][0]), format="%m/%d/%y"))[:-9])[:-6]
+        # d = str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9]
+        # dd = d[5:7]
+        # d = (str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
+        #     (df.iloc[1][0]), format="%m/%d/%y"))[:-9])[:-6]
         query_result = {
             'visit_id': df.iloc[0][0],
-            'visit_date': d,
+            'visit_date': df.iloc[1][0],
         }
         visit_details.append(query_result)
     visit_details.pop(0)
@@ -237,14 +237,14 @@ def opd_patient_details_with_date(date, m):
         df = pd.DataFrame(row, index=['visit_id', 'visit_date', 'doctor_speciality',
                                       'doctor_id', 'doctor_name'], )
         print(df)
-        d = str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9]
-        dd = d[5:7]
-        d = (str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
-            (df.iloc[1][0]), format="%m/%d/%y"))[:-9])[:-6]
-        print(d)
+        # d = str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9]
+        # dd = d[5:7]
+        # d = (str(pd.to_datetime((df.iloc[1][0]), format="%D/%M/%Y"))[:-9])[-2:] + "/" + dd + "/" + (str(pd.to_datetime(
+        #     (df.iloc[1][0]), format="%m/%d/%y"))[:-9])[:-6]
+        #print(d)
         query_result = {
             'visit_id': df.iloc[0][0],
-            'visit_date': d,
+            'visit_date': df.iloc[1][0],
             'doctor_speciality': df.iloc[2][0],
             'doctor_id': df.iloc[3][0],
             'doctor_name': df.iloc[4][0]
