@@ -25,6 +25,11 @@ def after_request(response):
     return response
 
 
+@app.route("/home")
+def welcs():
+    return "<h1>WELCOME API'S ARE NOW RUNNING :)<h1>"
+
+
 if __name__ == "__main__":
-    #context = ('local.crt', 'local.key')
-    app.run(debug=True, host='0.0.0.0', threaded=True, port=7000)#, ssl_context=context)
+    context = ('local.crt', 'local.key')
+    app.run(debug=True, host='0.0.0.0', threaded=True, port=7000, ssl_context=context)
