@@ -301,6 +301,13 @@ def get_images():
     return route_obj
 
 
+@app.route("/mrd/get_emp_detials", methods=["GET"])
+@jwt_required()
+def get_mrd_employees():
+    route_obj = oracle_apis.mrd_emp_data()
+    return route_obj
+
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
