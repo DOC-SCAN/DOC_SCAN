@@ -301,7 +301,7 @@ def get_images():
     return route_obj
 
 
-@app.route("/mrd/get_emp_detials", methods=["GET"])
+@app.route("/mrd/get_emp_details", methods=["GET"])
 @jwt_required()
 def get_mrd_employees():
     route_obj = oracle_apis.mrd_emp_data()
