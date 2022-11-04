@@ -316,7 +316,7 @@ def mrd_emp_data():
     cc('temp')
     print(emp_details)
     res = {
-            "data": [emp_details],
+            "data": emp_details,
             "status": True,
             "statusCode": 200,
             "message": "Success",
