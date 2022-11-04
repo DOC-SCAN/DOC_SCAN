@@ -312,12 +312,56 @@ def get_mrd_employees():
 @jwt_required()
 def create_scanners():
     name = str(request.args.get('name'))
+    username = str(request.args.get('username'))
+    password = "$2a$10$IcdThzaP2K.gmZ47A05rX.tkfPPkG4a7mjrjGdIuYrLHa1cm.cVOS"
     emp_id = str(request.args.get('emp_id'))
     is_scanner = bool(request.args.get('is_scanner'))
-    is_scanner = bool(request.args.get('is_viewer'))
-    username = str(request.args.get('username'))
-    email = str(request.args.get('email'))
+    is_viewer = bool(request.args.get('is_viewer'))
     is_admin = False
+    email = str(request.args.get('email'))
+    is_active = True
+    last_login = ''
+    last_logout = ''
+    pass_changed = False
+    total_images_scanned = 0
+    image = str(request.args.get('image'))
+    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    collection = my_client["DOC_SCAN"]
+    doc_id = collection['AUTH']
+    ob = {
+        'name': name,
+        'USERNAME': username,
+        'PASSWORD': password,
+        'is_admin': is_admin,
+        "is_active": is_active,
+        "is_scanner": is_scanner,
+        "is_viewer": is_viewer,
+        "last_login": {
+            "$timestamp": {
+                "t": 0,
+                "i": 0
+            }
+        },
+        "last_logout": {
+            "$timestamp": {
+                "t": 0,
+                "i": 0
+            }
+        },
+        "password_changed": pass_changed,
+        "emp_id": emp_id,
+        "email": email,
+        "total_images_scanned": {
+            "$numberLong": "0"
+        },
+        "image": image
+    }
+
+    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    collection = my_client["DOC_SCAN"]
+    doc_id = collection['AUTH']
+    doc_id.insert_one(ob)
+    return {'msg': "Success"}
 
 
 @app.errorhandler(404)
