@@ -291,11 +291,11 @@ def demo(m):
 def mrd_emp_data():
     emp_details = []
     bs64 = str()
-    query = "select t.emp_id || '.jpg' ,t.name,p.photo from employee_list_working t,employee_profile p where t.dept_id=19 and t.emp_id=p.emp_id"
+    query = "select t.emp_id || '.jpg' ,t.name,p.photo, t.email from employee_list_working t,employee_profile p where t.dept_id=19 and t.emp_id=p.emp_id"
     dsn_tns = cx_Oracle.connect('ASAD_25510/asad#123@prodhims.shifa.com.pk:1521/himsdb.shifa.com.pk')
     cursor = dsn_tns.cursor()
     for row in cursor.execute(query):
-        df = pd.DataFrame(row, index=['EMP_ID', 'NAME', 'PHOTO'], )
+        df = pd.DataFrame(row, index=['EMP_ID', 'NAME', 'PHOTO', 'EMAIL'], )
         print(df)
         f = open("temp/" + str(df.iloc[0][0]), 'wb')
         f.write(df.iloc[2][0])
@@ -309,7 +309,7 @@ def mrd_emp_data():
                 'name': df.iloc[1][0],
                 'base64': bs64.decode("utf-8"),
                 'department': "MEDICAL RECORDS",
-                'email': ''
+                'email': df.iloc[3][0]
             }
             emp_details.append(tp)
 

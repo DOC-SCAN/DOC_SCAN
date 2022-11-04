@@ -253,7 +253,7 @@ def route_function_bulk_save():
 
         image_bytes = io.BytesIO()
         im.save(image_bytes, format='JPEG')
-        #img array
+        # img array
         image = {
             'doc_id': int(str(filename).split('.')[0]),
             'doc': image_bytes.getvalue(),
@@ -306,6 +306,18 @@ def get_images():
 def get_mrd_employees():
     route_obj = oracle_apis.mrd_emp_data()
     return route_obj
+
+
+@app.route("/mrd/create_scanner_user", methods=["POST"])
+@jwt_required()
+def create_scanners():
+    name = str(request.args.get('name'))
+    emp_id = str(request.args.get('emp_id'))
+    is_scanner = bool(request.args.get('is_scanner'))
+    is_scanner = bool(request.args.get('is_viewer'))
+    username = str(request.args.get('username'))
+    email = str(request.args.get('email'))
+    is_admin = False
 
 
 @app.errorhandler(404)
