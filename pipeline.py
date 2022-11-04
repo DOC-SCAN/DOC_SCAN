@@ -53,6 +53,17 @@ def login():
         if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
+                            "is_admin": user_from_db['is_admin'],
+                            "is_active": user_from_db['is_active'],
+                            "is_scanner": user_from_db['is_scanner'],
+                            "is_viewer": user_from_db['is_viewer'],
+                            "last_login": user_from_db['last_login'],
+                            "last_logout": user_from_db['last_logout'],
+                            "password_changed": user_from_db['password_changed'],
+                            "emp_id": user_from_db['emp_id'],
+                            "email": user_from_db['email'],
+                            "total_images_scanned": user_from_db['total_images_scanned'],
+                            "image": user_from_db['image'],
                             "status": True
                             }), 200, {"Access-Control-Allow-Origin": '*'}
 
@@ -362,6 +373,37 @@ def create_scanners():
     doc_id = collection['AUTH']
     doc_id.insert_one(ob)
     return {'msg': "Success"}
+
+
+@app.route("/mrd/reset_pass", methods=["POST"])
+@jwt_required()
+def reset_pass():
+    obj = request.get_json()
+    pas = str(obj['pass'])
+    user = str(obj['user']).upper()
+    change = str(obj['changed_pass'])
+    print("Connecting to db")
+    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    print("connection successful")
+    collection = my_client["DOC_SCAN"]
+    doc = collection['AUTH']
+    d = doc.find_one({"USERNAME": user})
+    user_password_from_db = d["PASSWORD"]
+    if bc.checkpw(pas.encode('utf-8'), user_password_from_db.encode('utf-8')):
+        if bc.checkpw(change.encode('utf-8'), user_password_from_db.encode('utf-8')):
+            return {"msg": "Old password can't be set as new password.",
+                    "status": 0
+                    }
+        chan = {"$set": {'PASSWORD': (bc.hashpw(change.encode('utf-8'), bc.gensalt(10))).decode('utf-8')}}
+        fil = {"USERNAME": user}
+        doc.update_one(fil, chan)
+        return {"msg": "SUCCESS",
+                "status": 1
+                }
+    else:
+        return {"msg": "FAILED",
+                "status": 0
+                }
 
 
 @app.errorhandler(404)

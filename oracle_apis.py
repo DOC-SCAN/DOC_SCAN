@@ -315,7 +315,14 @@ def mrd_emp_data():
 
     cc('temp')
     print(emp_details)
-    return emp_details
+    res = {
+            "data": [emp_details],
+            "status": True,
+            "statusCode": 200,
+            "message": "Success",
+            "error": ""
+    }
+    return res
 
 
 if __name__ == '__main__':
