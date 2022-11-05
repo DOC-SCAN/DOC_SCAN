@@ -338,7 +338,7 @@ def create_scanners():
     image = str(request.args.get('image'))
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     collection = my_client["DOC_SCAN"]
-    doc_id = collection['AUTH']
+    doc_id = collection['VIEWER_AUTH']
     ob = {
         'name': name,
         'USERNAME': username,
@@ -370,7 +370,7 @@ def create_scanners():
 
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     collection = my_client["DOC_SCAN"]
-    doc_id = collection['AUTH']
+    doc_id = collection['VIEWER_AUTH']
     doc_id.insert_one(ob)
     return {'msg': "Success"}
 
