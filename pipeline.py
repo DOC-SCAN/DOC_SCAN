@@ -323,6 +323,7 @@ def get_mrd_employees():
 @jwt_required()
 def create_scanners():
     name = str(request.args.get('name'))
+    print(request.args.get('name'))
     username = str(request.args.get('username'))
     password = "$2a$10$IcdThzaP2K.gmZ47A05rX.tkfPPkG4a7mjrjGdIuYrLHa1cm.cVOS"
     emp_id = str(request.args.get('emp_id'))
@@ -331,8 +332,8 @@ def create_scanners():
     is_admin = False
     email = str(request.args.get('email'))
     is_active = True
-    last_login = ''
-    last_logout = ''
+    last_login = str('')
+    last_logout = str('')
     pass_changed = False
     total_images_scanned = 0
     image = str(request.args.get('image'))
