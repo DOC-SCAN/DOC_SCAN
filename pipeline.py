@@ -348,18 +348,8 @@ def create_scanners():
         "is_active": is_active,
         "is_scanner": is_scanner,
         "is_viewer": is_viewer,
-        "last_login": {
-            "$timestamp": {
-                "t": 0,
-                "i": 0
-            }
-        },
-        "last_logout": {
-            "$timestamp": {
-                "t": 0,
-                "i": 0
-            }
-        },
+        "last_login": '',
+        "last_logout": '',
         "password_changed": pass_changed,
         "emp_id": emp_id,
         "email": email,
