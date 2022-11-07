@@ -387,7 +387,7 @@ def create_scanners():
 def reset_pass():
     obj = request.get_json()
     pas = str(obj['pass'])
-    user = str(obj['user']).upper()
+    user = str(obj['user'])
     change = str(obj['changed_pass'])
     print("Connecting to db")
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
