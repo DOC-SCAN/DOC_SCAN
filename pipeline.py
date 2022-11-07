@@ -346,6 +346,7 @@ def create_scanners():
     doc_id = collection['VIEWER_AUTH']
     ob = {
         'name': name,
+        'USERNAME': emp_id,
         'PASSWORD': password,
         'is_admin': is_admin,
         "is_active": is_active,
@@ -365,8 +366,11 @@ def create_scanners():
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['VIEWER_AUTH']
-    doc_id.insert_one(ob)
-    return {'msg': "Success"}
+    if not(doc_id.find_one({"emp_id": emp_id})):
+        doc_id.insert_one(ob)
+        return {'msg': "Success", 'status': 1}
+    else:
+        return {'msg': "Either the user is disabled or already created", 'status': 0}
 
 
 @app.route("/mrd/reset_pass", methods=["POST"])
