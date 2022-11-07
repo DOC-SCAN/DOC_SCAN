@@ -395,6 +395,7 @@ def reset_pass():
     collection = my_client["DOC_SCAN"]
     doc = collection['AUTH']
     d = doc.find_one({"USERNAME": user})
+    print(d)
     user_password_from_db = d["PASSWORD"]
     if bc.checkpw(pas.encode('utf-8'), user_password_from_db.encode('utf-8')):
         if bc.checkpw(change.encode('utf-8'), user_password_from_db.encode('utf-8')):
