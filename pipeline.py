@@ -322,27 +322,30 @@ def get_mrd_employees():
 @app.route("/mrd/create_scanner_user", methods=["POST"])
 @jwt_required()
 def create_scanners():
-    name = str(request.args.get('name'))
-    print(request.args.get('name'))
-    username = str(request.args.get('username'))
+    data_to_be_saved = request.get_json()
+    # print(data_to_be_saved)
+    d = json.dumps(data_to_be_saved)
+    loaded = json.loads(d)
+    print(loaded)
+
+    name = str(loaded['name'])
     password = "$2a$10$IcdThzaP2K.gmZ47A05rX.tkfPPkG4a7mjrjGdIuYrLHa1cm.cVOS"
-    emp_id = str(request.args.get('emp_id'))
-    is_scanner = bool(request.args.get('is_scanner'))
-    is_viewer = bool(request.args.get('is_viewer'))
+    emp_id = str(loaded['emp_id'])
+    is_scanner = bool(loaded['is_scanner'])
+    is_viewer = bool(loaded['is_viewer'])
     is_admin = False
-    email = str(request.args.get('email'))
+    email = str(loaded['email'])
     is_active = True
     last_login = str('')
     last_logout = str('')
     pass_changed = False
     total_images_scanned = 0
-    image = str(request.args.get('image'))
+    image = str(loaded['image'])
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['VIEWER_AUTH']
     ob = {
         'name': name,
-        'USERNAME': username,
         'PASSWORD': password,
         'is_admin': is_admin,
         "is_active": is_active,
