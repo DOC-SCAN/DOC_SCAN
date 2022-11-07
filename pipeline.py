@@ -387,15 +387,14 @@ def create_scanners():
 def reset_pass():
     obj = request.get_json()
     pas = str(obj['pass'])
-    user = str(obj['user'])
+    user = str(obj['user']).upper()
     change = str(obj['changed_pass'])
     print("Connecting to db")
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     print("connection successful")
     collection = my_client["DOC_SCAN"]
-    doc = collection['AUTH']
+    doc = collection['VIEWER_AUTH']
     d = doc.find_one({"USERNAME": user})
-    print(d)
     user_password_from_db = d["PASSWORD"]
     if bc.checkpw(pas.encode('utf-8'), user_password_from_db.encode('utf-8')):
         if bc.checkpw(change.encode('utf-8'), user_password_from_db.encode('utf-8')):
