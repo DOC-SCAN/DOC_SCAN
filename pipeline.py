@@ -2,6 +2,8 @@ import json
 import base64
 from flask import send_file, Flask, request, make_response, jsonify
 from flask_compress import Compress
+
+import Mongo_APIS
 from driver_helper import main_scanner_driver, clear_crap
 from zipfile import ZipFile
 from os.path import basename
@@ -319,6 +321,13 @@ def get_mrd_employees():
     return route_obj
 
 
+@app.route("/mrd/get_all_users", methods=["GET"])
+@jwt_required()
+def bring_all_users():
+    route_obj = Mongo_APIS.bring_users_data()
+    return route_obj
+
+
 @app.route("/mrd/create_scanner_user", methods=["POST"])
 @jwt_required()
 def create_scanners():
@@ -366,7 +375,7 @@ def create_scanners():
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['VIEWER_AUTH']
-    if not(doc_id.find_one({"emp_id": emp_id})):
+    if not (doc_id.find_one({"emp_id": emp_id})):
         doc_id.insert_one(ob)
         return {'msg': "Success", 'status': 1}
     else:
