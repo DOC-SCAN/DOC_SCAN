@@ -93,6 +93,7 @@ def login_rolebase():
             doc_id.update_one({'USERNAME': str(login_details['USERNAME']).upper()},
                               {"$set": {"last_login": str(datetime.datetime.now())}})
             return jsonify({"access_token": access_token,
+                            "name": user_from_db['name'],
                             "is_admin": user_from_db['is_admin'],
                             "is_active": user_from_db['is_active'],
                             "is_scanner": user_from_db['is_scanner'],
