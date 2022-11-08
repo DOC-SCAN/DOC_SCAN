@@ -90,8 +90,8 @@ def login_rolebase():
         print(user_from_db['PASSWORD'])
         if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
-            doc_id.find_one_and_update({'USERNAME': str(login_details['USERNAME']).upper()},
-                                       {'$set', {'last_login', str(datetime.datetime.now())}})
+            doc_id.update_one({'USERNAME': str(login_details['USERNAME']).upper()},
+                              {"$set": {"last_login": str(datetime.datetime.now())}})
             return jsonify({"access_token": access_token,
                             "is_admin": user_from_db['is_admin'],
                             "is_active": user_from_db['is_active'],
