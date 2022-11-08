@@ -2,7 +2,6 @@ import json
 import base64
 from flask import send_file, Flask, request, make_response, jsonify
 from flask_compress import Compress
-
 import Mongo_APIS
 from driver_helper import main_scanner_driver, clear_crap
 from zipfile import ZipFile
@@ -407,19 +406,24 @@ def reset_pass():
     print("connection successful")
     collection = my_client["DOC_SCAN"]
     doc = collection['VIEWER_AUTH']
-    d = doc.find_one({"USERNAME": user})
-    user_password_from_db = d["PASSWORD"]
-    if bc.checkpw(pas.encode('utf-8'), user_password_from_db.encode('utf-8')):
-        if bc.checkpw(change.encode('utf-8'), user_password_from_db.encode('utf-8')):
-            return {"msg": "Old password can't be set as new password.",
+    if doc.find_one({"USERNAME": user, "is_admin": False}):
+        d = doc.find_one({"USERNAME": user, "is_admin": False})
+        user_password_from_db = d["PASSWORD"]
+        if bc.checkpw(pas.encode('utf-8'), user_password_from_db.encode('utf-8')):
+            if bc.checkpw(change.encode('utf-8'), user_password_from_db.encode('utf-8')):
+                return {"msg": "Old password can't be set as new password.",
+                        "status": 0
+                        }
+            chan = {"$set": {'PASSWORD': (bc.hashpw(change.encode('utf-8'), bc.gensalt(10))).decode('utf-8')}}
+            fil = {"USERNAME": user}
+            doc.update_one(fil, chan)
+            return {"msg": "SUCCESS",
+                    "status": 1
+                    }
+        else:
+            return {"msg": "FAILED",
                     "status": 0
                     }
-        chan = {"$set": {'PASSWORD': (bc.hashpw(change.encode('utf-8'), bc.gensalt(10))).decode('utf-8')}}
-        fil = {"USERNAME": user}
-        doc.update_one(fil, chan)
-        return {"msg": "SUCCESS",
-                "status": 1
-                }
     else:
         return {"msg": "FAILED",
                 "status": 0
