@@ -6,11 +6,13 @@ from multiprocessing import Pool as ProcessPool
 def image_processor(image):
     datagen = ImageDataGenerator(
         rotation_range=10,
-        width_shift_range=0.1,
-        height_shift_range=0.1,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
         shear_range=0.1,
         zoom_range=0.2,
         horizontal_flip=True,
+        vertical_flip=True,
+        brightness_range=[0.2, 1.2],
         fill_mode='nearest')
     j = 0
     filename = "C:\\Users\\Shifa\\Desktop\\BIN\\train\\1\\" + image
@@ -21,7 +23,8 @@ def image_processor(image):
     i = 0
     print("Augmenting " + filename)
     for batch in datagen.flow(x, batch_size=1,
-                              save_to_dir='C:\\Users\\Shifa\\Desktop\\BIN\\aug', save_prefix='KERAS_AUG', save_format='JPG'):
+                              save_to_dir='C:\\Users\\Shifa\\Desktop\\BIN\\aug', save_prefix='KERAS_AUG',
+                              save_format='JPG'):
         print("Gen: " + str(i))
         i += 1
         if i > 2:
