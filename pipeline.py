@@ -423,6 +423,7 @@ def reset_pass():
 @jwt_required()
 def logout_time_stamp():
     emp = str(request.args.get('emp_id'))
+    print(emp)
     print("Connecting to db")
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     print("connection successful")
