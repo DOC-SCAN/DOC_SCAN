@@ -243,7 +243,7 @@ def bring_users_data():
     cursor = doc_id.find({{}})
     data = []
     for document in cursor:
-        data.append(json.dumps(dict(document)))
+        print(document)
     res = {
         "data": data,
         "status": 1,
