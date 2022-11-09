@@ -240,7 +240,7 @@ def bring_users_data():
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['VIEWER_AUTH']
-    cursor = doc_id.find({})
+    cursor = doc_id.find({}, {'_id': False})
     data = []
     for document in cursor:
         data.append(document)
