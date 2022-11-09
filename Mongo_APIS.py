@@ -244,6 +244,7 @@ def bring_users_data():
                                                'PASSWORD': False,
                                                'password_changed': False,
                                                'total_images_scanned': False,
+                                               "is_active": False
                                                })
     data = []
     for document in cursor:
