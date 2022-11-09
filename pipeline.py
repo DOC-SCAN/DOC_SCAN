@@ -54,17 +54,6 @@ def login():
         if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             return jsonify({"access_token": access_token,
-                            "is_admin": user_from_db['is_admin'],
-                            "is_active": user_from_db['is_active'],
-                            "is_scanner": user_from_db['is_scanner'],
-                            "is_viewer": user_from_db['is_viewer'],
-                            "last_login": user_from_db['last_login'],
-                            "last_logout": user_from_db['last_logout'],
-                            "password_changed": user_from_db['password_changed'],
-                            "emp_id": user_from_db['emp_id'],
-                            "email": user_from_db['email'],
-                            "total_images_scanned": user_from_db['total_images_scanned'],
-                            "image": user_from_db['image'],
                             "status": True
                             }), 200, {"Access-Control-Allow-Origin": '*'}
 
