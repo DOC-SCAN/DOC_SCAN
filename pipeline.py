@@ -428,7 +428,8 @@ def logout_time_stamp():
     print("connection successful")
     collection = my_client["DOC_SCAN"]
     doc = collection['VIEWER_AUTH']
-    doc.update_one({'USERNAME': emp}, {'$set': {"last_logout": str(datetime.datetime.now())}})
+    a = doc.update_one({'USERNAME': emp}, {'$set': {"last_logout": str(datetime.datetime.now())}})
+    print(a)
     return {
         "msg": "Successfully Added Timestamp",
         "status": 1
