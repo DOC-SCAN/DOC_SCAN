@@ -6,6 +6,7 @@ import os
 import multiprocessing
 import json
 import bson
+import base64
 
 pytesseract.pytesseract.tesseract_cmd = 'D:\\Tesseract-OCR\\tesseract.exe'
 
@@ -260,7 +261,8 @@ def bring_users_data():
 def bulk_viewer(mr_no):
     mr = mr_no
     my_client = MongoClient()
-    my_client = MongoClient(host='mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'), unicode_decode_error_handler='ignore')
+    my_client = MongoClient(host='mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'),
+                            unicode_decode_error_handler='ignore')
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
     doc = collection['DOCUMENTS']
@@ -279,7 +281,7 @@ def bulk_viewer(mr_no):
         if document['class'] == '1':
             a0.append(bson.BSON.decode(document['doc']))
         elif document['class'] == '2':
-            a1.append(document['doc'].decode('utf-8', 'ignore'))
+            a1.append(base64.decode(document['doc']).replace('/\n|\r/g', '').toString())
         elif document['class'] == '3':
             a2.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '4':
