@@ -286,7 +286,7 @@ def bulk_viewer(mr_no):
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
             a1.append(encoded_string)
-            os.remove('tmp')
+            os.remove('tmp.jpg')
         elif document['class'] == '2':
             a1.append(base64.decode(document['doc']).toString())
         elif document['class'] == '3':
