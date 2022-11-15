@@ -276,21 +276,21 @@ def bulk_viewer(mr_no):
 
     for document in cur:
         if document['class'] == '1':
-            a0.append(document['doc'].decode('utf-8'))
+            a0.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '2':
-            a1.append(document['doc'].decode('utf-8'))
+            a1.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '3':
-            a2.append(document['doc'].decode('utf-8'))
+            a2.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '4':
-            a3.append(document['doc'].decode('utf-8'))
+            a3.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '5':
-            a4.append(document['doc'].decode('utf-8'))
+            a4.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '6':
-            a5.append(document['doc'].decode('utf-8'))
+            a5.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '7':
-            a6.append(document['doc'].decode('utf-8'))
+            a6.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '8':
-            a7.append(document['doc'].decode('utf-8'))
+            a7.append(document['doc'].decode('utf-8', 'ignore'))
     obj = {
         "data": [{
             "id": 1,
