@@ -279,7 +279,12 @@ def bulk_viewer(mr_no):
 
     for document in cur:
         if document['class'] == '1':
-            a0.append(bson.BSON.decode(document['doc']))
+            img = document['doc']
+            f = open("tmp.jpg", "wb")
+            f.write(img)
+            f.close()
+            a0.append((base64.b64encode("tmp.jpg").decode()))
+            os.remove('tmp')
         elif document['class'] == '2':
             a1.append(base64.decode(document['doc']).toString())
         elif document['class'] == '3':
