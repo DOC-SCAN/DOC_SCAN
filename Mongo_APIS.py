@@ -285,22 +285,71 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a1.append(encoded_string.decode('utf-8'))
+            a0.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '2':
-            a1.append(base64.decode(document['doc']).toString())
+            img = document['doc']
+            f = open("tmp.jpg", "wb")
+            f.write(img)
+            f.close()
+            with open("tmp.jpg", "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+            a1.append(encoded_string.decode('utf-8'))
+            os.remove('tmp.jpg')
         elif document['class'] == '3':
-            a2.append(document['doc'].decode('utf-8', 'ignore'))
+            img = document['doc']
+            f = open("tmp.jpg", "wb")
+            f.write(img)
+            f.close()
+            with open("tmp.jpg", "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+            a2.append(encoded_string.decode('utf-8'))
+            os.remove('tmp.jpg')
         elif document['class'] == '4':
-            a3.append(document['doc'].decode('utf-8', 'ignore'))
+            img = document['doc']
+            f = open("tmp.jpg", "wb")
+            f.write(img)
+            f.close()
+            with open("tmp.jpg", "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+            a3.append(encoded_string.decode('utf-8'))
+            os.remove('tmp.jpg')
         elif document['class'] == '5':
-            a4.append(document['doc'].decode('utf-8', 'ignore'))
+            img = document['doc']
+            f = open("tmp.jpg", "wb")
+            f.write(img)
+            f.close()
+            with open("tmp.jpg", "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+            a4.append(encoded_string.decode('utf-8'))
+            os.remove('tmp.jpg')
         elif document['class'] == '6':
-            a5.append(document['doc'].decode('utf-8', 'ignore'))
+            img = document['doc']
+            f = open("tmp.jpg", "wb")
+            f.write(img)
+            f.close()
+            with open("tmp.jpg", "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+            a5.append(encoded_string.decode('utf-8'))
+            os.remove('tmp.jpg')
         elif document['class'] == '7':
-            a6.append(document['doc'].decode('utf-8', 'ignore'))
+            img = document['doc']
+            f = open("tmp.jpg", "wb")
+            f.write(img)
+            f.close()
+            with open("tmp.jpg", "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+            a6.append(encoded_string.decode('utf-8'))
+            os.remove('tmp.jpg')
         elif document['class'] == '8':
-            a7.append(document['doc'].decode('utf-8', 'ignore'))
+            img = document['doc']
+            f = open("tmp.jpg", "wb")
+            f.write(img)
+            f.close()
+            with open("tmp.jpg", "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+            a7.append(encoded_string.decode('utf-8'))
+            os.remove('tmp.jpg')
     obj = {
         "data": [{
             "id": 1,
