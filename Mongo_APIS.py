@@ -259,7 +259,7 @@ def bring_users_data():
 def bulk_viewer(mr_no):
     mr = mr_no
     my_client = MongoClient()
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(host='mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'), unicode_decode_error_handler='ignore')
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
     doc = collection['DOCUMENTS']
@@ -276,7 +276,7 @@ def bulk_viewer(mr_no):
 
     for document in cur:
         if document['class'] == '1':
-            a0.append(json.loads(document['doc']).dumps.decode('utf-8'))
+            a0.append(document['doc'].decode('utf-8'))
         elif document['class'] == '2':
             a1.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '3':
