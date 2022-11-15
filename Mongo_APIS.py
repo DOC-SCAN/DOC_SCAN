@@ -276,7 +276,7 @@ def bulk_viewer(mr_no):
 
     for document in cur:
         if document['class'] == '1':
-            a0.append(document['doc'].decode('utf-8', 'ignore'))
+            a0.append(json.loads(document['doc']).dumps.decode('utf-8'))
         elif document['class'] == '2':
             a1.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '3':
