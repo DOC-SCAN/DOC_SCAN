@@ -5,6 +5,7 @@ from weak_classifier import classify
 import os
 import multiprocessing
 import json
+import bson
 
 pytesseract.pytesseract.tesseract_cmd = 'D:\\Tesseract-OCR\\tesseract.exe'
 
@@ -276,7 +277,7 @@ def bulk_viewer(mr_no):
 
     for document in cur:
         if document['class'] == '1':
-            a0.append(document['doc'].decode('ISO-8859-1'))
+            a0.append(bson.BSON.decode(document['doc']))
         elif document['class'] == '2':
             a1.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '3':
