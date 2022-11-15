@@ -281,7 +281,7 @@ def bulk_viewer(mr_no):
         if document['class'] == '1':
             a0.append(bson.BSON.decode(document['doc']))
         elif document['class'] == '2':
-            a1.append(base64.decode(document['doc']).replace('/\n|\r/g', '').toString())
+            a1.append(base64.decode(document['doc']).toString())
         elif document['class'] == '3':
             a2.append(document['doc'].decode('utf-8', 'ignore'))
         elif document['class'] == '4':
