@@ -292,6 +292,13 @@ def route_function_bulk_save():
     return "saved"
 
 
+@app.route("/bulk/view", methods=["GET"])
+@jwt_required()
+def route_function_bulk_view():
+    mr = request.args.get("mrno")
+    return Mongo_APIS.bulk_viewer(mr)
+
+
 @app.route("/employee_data", methods=["GET"])
 @jwt_required()
 def get_emp_data():

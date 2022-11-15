@@ -256,5 +256,79 @@ def bring_users_data():
     return res
 
 
+def bulk_viewer(mr_no):
+    mr = mr_no
+    my_client = MongoClient()
+    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    collection = my_client["DOC_SCAN"]
+    doc_id = collection['AUTH']
+    doc = collection['DOCUMENTS']
+
+    cur = doc.find({"mrno": mr})
+    a0 = []
+    a1 = []
+    a2 = []
+    a3 = []
+    a4 = []
+    a5 = []
+    a6 = []
+    a7 = []
+
+    for document in cur:
+        if document['class'] == '1':
+            a0.append(document['doc'])
+        elif document['class'] == '2':
+            a1.append(document['doc'])
+        elif document['class'] == '3':
+            a2.append(document['doc'])
+        elif document['class'] == '4':
+            a3.append(document['doc'])
+        elif document['class'] == '5':
+            a4.append(document['doc'])
+        elif document['class'] == '6':
+            a5.append(document['doc'])
+        elif document['class'] == '7':
+            a6.append(document['doc'])
+        elif document['class'] == '8':
+            a7.append(document['doc'])
+    obj = {
+        "data": [{
+            "id": 1,
+            "image": a0
+        },
+            {
+                "id": 2,
+                "image": a1
+            },
+            {
+                "id": 3,
+                "image": a2
+            },
+            {
+                "id": 4,
+                "image": a3
+            },
+            {
+                "id": 5,
+                "image": a4
+            },
+            {
+                "id": 6,
+                "image": a5
+            },
+            {
+                "id": 7,
+                "image": a6
+            },
+            {
+                "id": 8,
+                "image": a7
+            }],
+        "status": 200,
+        "message": "Success"
+    }
+    return obj
+
+
 if __name__ == '__main__':
     get_multi_vector_single_using_te()
