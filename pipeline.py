@@ -453,7 +453,8 @@ def deactivate():
     collection = my_client["DOC_SCAN"]
     doc = collection['VIEWER_AUTH']
     print(doc.find_one({'emp_id': emp}))
-    doc.update_one({'emp_id': emp}, {'$set': {"is_active": False}})
+    d = doc.find_one({'emp_id': emp})
+    doc.update_one({'emp_id': emp}, {'$set': {"is_active": not(d["is_active"])}})
     return {
         "msg": "Successfully Deactivated User",
         "status": 200
