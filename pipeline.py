@@ -443,6 +443,23 @@ def logout_time_stamp():
     }
 
 
+@app.route("/docscan/scanner/deactivate", methods=["POST"])
+def deactivate():
+    emp = str(request.args.get('emp_id'))
+    print(emp)
+    print("Connecting to db")
+    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    print("connection successful")
+    collection = my_client["DOC_SCAN"]
+    doc = collection['VIEWER_AUTH']
+    print(doc.find_one({'emp_id': emp}))
+    doc.update_one({'emp_id': emp}, {'$set': {"is_active": False}})
+    return {
+        "msg": "Successfully Deactivated User",
+        "status": 200
+    }
+
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
