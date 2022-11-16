@@ -427,7 +427,6 @@ def reset_pass():
 
 
 @app.route("/docscan/scanner/logout", methods=["POST"])
-@jwt_required()
 def logout_time_stamp():
     emp = str(request.args.get('emp_id'))
     print(emp)
