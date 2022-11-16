@@ -454,9 +454,10 @@ def deactivate():
     doc = collection['VIEWER_AUTH']
     print(doc.find_one({'emp_id': emp}))
     d = doc.find_one({'emp_id': emp})
+    msg = not(d["is_active"])
     doc.update_one({'emp_id': emp}, {'$set': {"is_active": not(d["is_active"])}})
     return {
-        "msg": "Successfully Deactivated User",
+        "message": "Successfully Changed to " + msg,
         "status": 200
     }
 
