@@ -34,7 +34,7 @@ compress.init_app(app)
 api = Api(app)
 jwt = JWTManager(app)
 app.config['JWT_SECRET_KEY'] = 'zb$@ic^Jg#aywFO1u9%shY7E66Z1cZnO&EK@9e$nwqTrLF#ph1'
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(minutes=1)
 
 
 @app.route("/docscan/login", methods=["POST"])
