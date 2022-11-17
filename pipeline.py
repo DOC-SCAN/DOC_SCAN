@@ -457,7 +457,7 @@ def deactivate():
     msg = not(d["is_active"])
     doc.update_one({'emp_id': emp}, {'$set': {"is_active": not(d["is_active"])}})
     return {
-        "message": "Successfully Changed to " + msg,
+        "message": "Successfully Changed to " + str(msg),
         "status": 200
     }
 
