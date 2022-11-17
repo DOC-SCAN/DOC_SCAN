@@ -383,7 +383,7 @@ def create_scanners():
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['VIEWER_AUTH']
-    if not (doc_id.find_one({"emp_id": emp_id}) is None):
+    if doc_id.find_one({"emp_id": emp_id}) is None:
         doc_id.insert_one(ob)
         return {'msg': "Success", 'status': 200}
     else:
