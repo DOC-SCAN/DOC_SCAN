@@ -76,7 +76,8 @@ def login_rolebase():
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print(encrpted_password)
         print(user_from_db['PASSWORD'])
-        if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")) and user_from_db['is_active'] is True:
+        if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")) and user_from_db[
+            'is_active'] is True:
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             doc_id.update_one({'USERNAME': str(login_details['USERNAME']).upper()},
                               {"$set": {"last_login": str(datetime.datetime.now())}})
@@ -96,9 +97,14 @@ def login_rolebase():
                             "status": True
                             }), 200, {"Access-Control-Allow-Origin": '*'}
 
-    return jsonify({'msg': 'The username or password is incorrect or you have been deactivated by the admin',
-                    "status": False
-                    }), 401
+    if user_from_db['is_active'] is False:
+        return jsonify({'msg': 'you have been deactivated by the admin',
+                        "status": False
+                        }), 401
+    else:
+        return jsonify({'msg': 'Username of password is incorrect',
+                        "status": False
+                        }), 401
 
 
 @app.after_request
@@ -526,8 +532,8 @@ def deactivate():
     doc = collection['VIEWER_AUTH']
     print(doc.find_one({'emp_id': emp}))
     d = doc.find_one({'emp_id': emp})
-    msg = not(d["is_active"])
-    doc.update_one({'emp_id': emp}, {'$set': {"is_active": not(d["is_active"])}})
+    msg = not (d["is_active"])
+    doc.update_one({'emp_id': emp}, {'$set': {"is_active": not (d["is_active"])}})
     return {
         "message": "Successfully Changed to " + str(msg),
         "status": 200
