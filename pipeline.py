@@ -76,7 +76,7 @@ def login_rolebase():
         encrpted_password = login_details['PASSWORD'].encode("utf-8")
         print(encrpted_password)
         print(user_from_db['PASSWORD'])
-        if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")):
+        if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")) and user_from_db['is_active'] is True:
             access_token = create_access_token(identity=user_from_db['USERNAME'])  # create jwt token
             doc_id.update_one({'USERNAME': str(login_details['USERNAME']).upper()},
                               {"$set": {"last_login": str(datetime.datetime.now())}})
@@ -96,7 +96,7 @@ def login_rolebase():
                             "status": True
                             }), 200, {"Access-Control-Allow-Origin": '*'}
 
-    return jsonify({'msg': 'The username or password is incorrect',
+    return jsonify({'msg': 'The username or password is incorrect or you have been deactivated by the admin',
                     "status": False
                     }), 401
 
