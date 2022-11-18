@@ -534,10 +534,16 @@ def deactivate():
     d = doc.find_one({'emp_id': emp})
     msg = not (d["is_active"])
     doc.update_one({'emp_id': emp}, {'$set': {"is_active": not (d["is_active"])}})
-    return {
-        "message": "Successfully Changed to " + str(msg),
-        "status": 200
-    }
+    if doc.update_one({'emp_id': emp}, {'$set': {"is_active": not (d["is_active"])}}):
+        return {
+            "message": "Successfully Changed to " + str(msg),
+            "status": 200
+        }
+    else:
+        return {
+            "message": "Unable to change status",
+            "status": 304
+        }
 
 
 @app.errorhandler(404)
