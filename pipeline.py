@@ -418,7 +418,7 @@ def create_scanners():
     print(loaded)
 
     name = str(loaded['name'])
-    password = "$2a$10$IcdThzaP2K.gmZ47A05rX.tkfPPkG4a7mjrjGdIuYrLHa1cm.cVOS"
+    password = "$2b$10$eZXqe1XtndtvuOFdYqKHneX5XY6bIX7.88Jx8VzowVciB4Y.3ssTu"
     emp_id = str(loaded['emp_id'])
     is_scanner = bool(loaded['is_scanner'])
     is_viewer = bool(loaded['is_viewer'])
