@@ -275,7 +275,7 @@ def route_function_upload():
 
 @app.route("/docscan/upload/bulk", methods=["POST"])
 @jwt_required()
-def route_function_upload():
+def route_function_upload_bulk():
     print("line 1")
     data_to_be_saved = request.get_json()
     # print(data_to_be_saved)
