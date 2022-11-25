@@ -273,6 +273,77 @@ def route_function_upload():
     return "saved"
 
 
+@app.route("/docscan/upload/bulk", methods=["POST"])
+@jwt_required()
+def route_function_upload():
+    print("line 1")
+    data_to_be_saved = request.get_json()
+    # print(data_to_be_saved)
+    d = json.dumps(data_to_be_saved)
+    print("line 2")
+    loaded = json.loads(d)
+    print("line 3")
+    # print(loaded)
+    for i in (loaded["scannedImages"]["scannerImages"]):
+        print("line 4")
+        # print(i["baseX64"][1:])
+        imgdata = base64.b64decode('/' + (i["baseX64"])[1:])
+        print("line 5")
+        filename = str(
+            doc_id_from_mongo.doc_id_dispatcher()) + '.jpg'
+        with open(filename, 'wb') as f:
+            f.write(imgdata)
+        im = Image.open(filename)
+
+        image_bytes = io.BytesIO()
+        print("original image captured...")
+        im.save(image_bytes, format='JPEG')
+
+        doc_value = image_bytes.getvalue()
+
+        jpg_compress_mechanisms.resize_on_the_go(filename)
+        with open(filename, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read())
+            thumb = encoded_string
+            # print(thumb)
+        print('MAKING THE OBJECT')
+        image = {
+            'doc_id': int(str(filename).split('.')[0]),
+            'doc': image_bytes.getvalue(),
+            'mrno': loaded["mrno"],
+            'type': loaded["type"],
+            'visit_id_op': loaded["visit_id_op"],
+            'doctor_id_op': loaded["doctor_id_op"],
+            'doctor_speciality_op': loaded["doctor_speciality_op"],
+            'visit_date_op': loaded["visit_date_op"],
+            'admission_id': loaded["admission_id"],
+            'admission_date_ip': loaded["admission_date_ip"],
+            'complain_ip': loaded["complain_ip"],
+            'doctor_id_ip': loaded["doctor_id_ip"],
+            'doctor_speciality_ip': loaded["doctor_speciality_ip"],
+            'class': None,
+            'ocr': None,
+            'notes': None,
+            'misclassified': False,
+            'marked_as_fav_by_user': None,  # this will be an array
+            'main_type': None,
+            'is_bulk': True,
+            'uploaded': True
+        }
+        # print(image)
+        print("Connecting to db")
+        my_client = MongoClient()
+        my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+        collection = my_client["DOC_SCAN"]
+        doc_id = collection['AUTH']
+        doc = collection['DOCUMENTS']
+        image_id = doc.insert_one(image).inserted_id
+    for img in glob.glob("*.jpg"):
+        print("removing " + img)
+        os.remove(img)
+    return "saved"
+
+
 @app.route("/save", methods=["POST"])
 @jwt_required()
 def route_function_save():
