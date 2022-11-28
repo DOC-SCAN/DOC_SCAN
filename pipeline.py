@@ -311,7 +311,6 @@ def route_function_upload_bulk():
             'doc_id': int(str(filename).split('.')[0]),
             'doc': image_bytes.getvalue(),
             'mrno': loaded["mrno"],
-            'type': loaded["type"],
             'visit_id_op': loaded["visit_id_op"],
             'doctor_id_op': loaded["doctor_id_op"],
             'doctor_speciality_op': loaded["doctor_speciality_op"],
