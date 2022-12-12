@@ -292,7 +292,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a0.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a0.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '2':
             img = document['doc']
@@ -301,7 +301,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a1.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a1.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '3':
             img = document['doc']
@@ -310,7 +310,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a2.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a2.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '4':
             img = document['doc']
@@ -319,7 +319,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a3.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a3.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '5':
             img = document['doc']
@@ -328,7 +328,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a4.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a4.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '6':
             img = document['doc']
@@ -337,7 +337,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a5.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a5.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '7':
             img = document['doc']
@@ -346,7 +346,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a6.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a6.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '8':
             img = document['doc']
@@ -355,7 +355,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a7.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a7.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '9':
             img = document['doc']
@@ -364,7 +364,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a8.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a8.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '10':
             img = document['doc']
@@ -373,7 +373,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a9.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a9.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '11':
             img = document['doc']
@@ -382,7 +382,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a10.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a10.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '12':
             img = document['doc']
@@ -391,7 +391,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a11.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a11.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '13':
             img = document['doc']
@@ -400,7 +400,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a12.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a12.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '14':
             img = document['doc']
@@ -409,7 +409,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a13.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a13.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
         elif document['class'] == '0':
             img = document['doc']
@@ -418,7 +418,7 @@ def bulk_viewer(mr_no):
             f.close()
             with open("tmp.jpg", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            a14.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+            a14.append(encoded_string.decode('utf-8'))
             os.remove('tmp.jpg')
     obj = {
         "data": [{
