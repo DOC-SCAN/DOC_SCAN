@@ -18,7 +18,7 @@ def stats_calculator():
     total_space_used = total_space_used / 1000000000
 
     stats = {
-        "files": total_files,
+        "files": len(total_files),
         "documents": total_documents,
         "unclassified": total_unclassified,
         "classified": total_classified,

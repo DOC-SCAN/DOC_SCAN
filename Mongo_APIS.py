@@ -285,205 +285,206 @@ def bulk_viewer(mr_no):
     a14 = []
 
     for document in cur:
-        if document['class'] == '1':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a0.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '2':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a1.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '3':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a2.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '4':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a3.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '5':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a4.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '6':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a5.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '7':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a6.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '8':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a7.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '9':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a8.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '10':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a9.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '11':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a10.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '12':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a11.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '13':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a12.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '14':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a13.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-        elif document['class'] == '0':
-            img = document['doc']
-            f = open("tmp.jpg", "wb")
-            f.write(img)
-            f.close()
-            with open("tmp.jpg", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            a14.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
-            os.remove('tmp.jpg')
-    obj = {
-        "data": [{
-            "id": 1,
-            "image": a0
-        },
-            {
-                "id": 2,
-                "image": a1
+        if not document['is_del']:
+            if document['class'] == '1':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a0.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '2':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a1.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '3':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a2.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '4':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a3.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '5':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a4.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '6':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a5.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '7':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a6.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '8':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a7.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '9':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a8.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '10':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a9.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '11':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a10.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '12':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a11.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '13':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a12.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '14':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a13.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+            elif document['class'] == '0':
+                img = document['doc']
+                f = open("tmp.jpg", "wb")
+                f.write(img)
+                f.close()
+                with open("tmp.jpg", "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read())
+                a14.append({'base64': encoded_string.decode('utf-8'), 'id': document['doc_id']})
+                os.remove('tmp.jpg')
+        obj = {
+            "data": [{
+                "id": 1,
+                "image": a0
             },
-            {
-                "id": 3,
-                "image": a2
-            },
-            {
-                "id": 4,
-                "image": a3
-            },
-            {
-                "id": 5,
-                "image": a4
-            },
-            {
-                "id": 6,
-                "image": a5
-            },
-            {
-                "id": 7,
-                "image": a6
-            },
-            {
-                "id": 8,
-                "image": a7
-            },
-            {
-                "id": 9,
-                "image": a8
-            },
-            {
-                "id": 10,
-                "image": a9
-            },
-            {
-                "id": 11,
-                "image": a10
-            },
-            {
-                "id": 12,
-                "image": a11
-            },
-            {
-                "id": 13,
-                "image": a12
-            },
-            {
-                "id": 14,
-                "image": a13
-            },
-            {
-                "id": 0,
-                "image": a14
-            }],
-        "status": 200,
-        "message": "Success"
-    }
+                {
+                    "id": 2,
+                    "image": a1
+                },
+                {
+                    "id": 3,
+                    "image": a2
+                },
+                {
+                    "id": 4,
+                    "image": a3
+                },
+                {
+                    "id": 5,
+                    "image": a4
+                },
+                {
+                    "id": 6,
+                    "image": a5
+                },
+                {
+                    "id": 7,
+                    "image": a6
+                },
+                {
+                    "id": 8,
+                    "image": a7
+                },
+                {
+                    "id": 9,
+                    "image": a8
+                },
+                {
+                    "id": 10,
+                    "image": a9
+                },
+                {
+                    "id": 11,
+                    "image": a10
+                },
+                {
+                    "id": 12,
+                    "image": a11
+                },
+                {
+                    "id": 13,
+                    "image": a12
+                },
+                {
+                    "id": 14,
+                    "image": a13
+                },
+                {
+                    "id": 0,
+                    "image": a14
+                }],
+            "status": 200,
+            "message": "Success"
+        }
     return obj
 
 
