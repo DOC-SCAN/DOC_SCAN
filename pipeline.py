@@ -25,6 +25,7 @@ import glob
 import os
 from weak_classifier import give_classes_data as gd
 from Mongo_APIS import get_by_mr as gmr
+from pesonal_dash import stats_calculator
 
 compress = Compress()
 app = Flask(__name__)
@@ -605,6 +606,11 @@ def deactivate():
             "message": "Unable to change status",
             "status": 304
         }
+
+
+@app.route("/docscan/stats", methods=["GET"])
+def stats():
+    return stats_calculator()
 
 
 @app.errorhandler(404)
