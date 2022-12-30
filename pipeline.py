@@ -613,6 +613,14 @@ def stats():
     return stats_calculator()
 
 
+@app.route("/docscan/delete", methods=["POST"])
+def dell():
+    r = request.get_json()
+    img_id = str(r['id'])
+    Mongo_APIS.soft_del(img_id)
+    return {'msg': "Success", 'status': 200}
+
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)

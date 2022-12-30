@@ -488,5 +488,16 @@ def bulk_viewer(mr_no):
     return obj
 
 
+def soft_del(doc_id):
+    my_client = MongoClient()
+    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+
+    db = my_client["DOC_SCAN"]
+    collection = db['DOCUMENTS']
+    doc_to_del = collection.find(doc_id)
+    for document in doc_to_del:
+        document["is_del"] = True
+
+
 if __name__ == '__main__':
     get_multi_vector_single_using_te()
