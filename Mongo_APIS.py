@@ -494,11 +494,7 @@ def soft_del(doc_id):
 
     db = my_client["DOC_SCAN"]
     collection = db['DOCUMENTS']
-    doc_to_del = collection.find({"doc_id": doc_id})
-    for document in doc_to_del:
-        document["is_del"] = True
-        print(document)
-
+    doc_to_del = collection.update_one({"doc_id": doc_id}, {"is_del" : False})
 
 if __name__ == '__main__':
     get_multi_vector_single_using_te()
