@@ -496,6 +496,7 @@ def soft_del(doc_id):
     collection = db['DOCUMENTS']
     doc_to_del = collection.find({"mrno": doc_id})
     for document in doc_to_del:
+        print(document)
         document["is_del"] = True
 
 
