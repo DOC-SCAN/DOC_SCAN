@@ -619,12 +619,24 @@ def stats():
 
 
 @app.route("/docscan/delete", methods=["POST"])
+@jwt_required()
 def dell():
     r = request.get_json()
     img_id = str(r['id'])
     img_id = int(img_id)
     print(img_id)
     Mongo_APIS.soft_del(img_id)
+    return {'msg': "Success", 'status': 200}
+
+
+@app.route("/docscan/undo_delete", methods=["POST"])
+@jwt_required()
+def undo_dell():
+    r = request.get_json()
+    img_id = str(r['id'])
+    img_id = int(img_id)
+    print(img_id)
+    Mongo_APIS.soft_del_rev(img_id)
     return {'msg': "Success", 'status': 200}
 
 
