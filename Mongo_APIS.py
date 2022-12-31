@@ -488,13 +488,13 @@ def bulk_viewer(mr_no):
     return obj
 
 
-def soft_del(doc_id):
+def soft_del(doc_idd):
     my_client = MongoClient()
     my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
 
     db = my_client["DOC_SCAN"]
     collection = db['DOCUMENTS']
-    doc_to_del = collection.update_one({"doc_id": doc_id}, {"$set": {"is_del": False}})
+    doc_to_del = collection.update_one({"doc_id": doc_idd}, {"$set"  : {"is_del": False}})
 
 
 if __name__ == '__main__':
