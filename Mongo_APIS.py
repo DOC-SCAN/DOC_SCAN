@@ -494,7 +494,7 @@ def soft_del(doc_idd):
 
     db = my_client["DOC_SCAN"]
     collection = db['DOCUMENTS']
-    doc_to_del = collection.update_one({"doc_id": doc_idd}, {"$set"  : {"is_del": False}})
+    doc_to_del = collection.update_one({"doc_id": doc_idd}, {"$set"  : {"is_del": True}})
 
 
 if __name__ == '__main__':
