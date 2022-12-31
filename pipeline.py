@@ -587,6 +587,7 @@ def logout_time_stamp():
 
 
 @app.route("/docscan/scanner/deactivate", methods=["POST"])
+@jwt_required()
 def deactivate():
     emp = str(request.args.get('emp_id'))
     print(emp)
@@ -612,6 +613,7 @@ def deactivate():
 
 
 @app.route("/docscan/stats", methods=["GET"])
+@jwt_required()
 def stats():
     return stats_calculator()
 
