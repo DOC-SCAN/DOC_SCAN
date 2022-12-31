@@ -258,7 +258,8 @@ def route_function_upload():
             'marked_as_fav_by_user': None,  # this will be an array
             'main_type': None,
             'is_bulk': False,
-            'uploaded': True
+            'uploaded': True,
+            'is_del': False
         }
         # print(image)
         print("Connecting to db")
@@ -319,7 +320,8 @@ def route_function_upload_bulk():
             'marked_as_fav_by_user': None,  # this will be an array
             'main_type': None,
             'is_bulk': True,
-            'uploaded': True
+            'uploaded': True,
+            'is_del': False
         }
         # print(image)
         print("Connecting to db")
@@ -418,7 +420,8 @@ def route_function_bulk_save():
             'misclassified': False,
             'marked_as_fav_by_user': None,  # this will be an array
             'main_type': None,
-            'is_bulk': True
+            'is_bulk': True,
+            'is_del': False
         }
         my_client = MongoClient()
         my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
