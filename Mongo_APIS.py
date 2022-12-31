@@ -494,7 +494,7 @@ def soft_del(doc_id):
 
     db = my_client["DOC_SCAN"]
     collection = db['DOCUMENTS']
-    doc_to_del = collection.find(int(doc_id))
+    doc_to_del = collection.find(doc_id)
     for document in doc_to_del:
         document["is_del"] = True
 

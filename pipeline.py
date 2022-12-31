@@ -620,6 +620,8 @@ def stats():
 def dell():
     r = request.get_json()
     img_id = str(r['id'])
+    img_id = int(img_id)
+    print(img_id)
     Mongo_APIS.soft_del(img_id)
     return {'msg': "Success", 'status': 200}
 
