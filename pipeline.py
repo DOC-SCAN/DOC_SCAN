@@ -26,6 +26,7 @@ import os
 from weak_classifier import give_classes_data as gd
 from Mongo_APIS import get_by_mr as gmr
 from pesonal_dash import stats_calculator
+from MONGO_CRED import DB_URL, DB_PASSWORD, DB_USERNAME
 
 compress = Compress()
 app = Flask(__name__)
@@ -42,7 +43,7 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(hours=8)
 def login():
     login_details = request.get_json()
     print(login_details)
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
@@ -67,7 +68,7 @@ def login():
 def login_rolebase():
     login_details = request.get_json()
     print(login_details)
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['VIEWER_AUTH']
     user_from_db = doc_id.find_one({'USERNAME': str(login_details['USERNAME']).upper()})  # search for user in database
@@ -264,7 +265,7 @@ def route_function_upload():
         # print(image)
         print("Connecting to db")
         my_client = MongoClient()
-        my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+        my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
         collection = my_client["DOC_SCAN"]
         doc_id = collection['AUTH']
         doc = collection['DOCUMENTS']
@@ -326,7 +327,7 @@ def route_function_upload_bulk():
         # print(image)
         print("Connecting to db")
         my_client = MongoClient()
-        my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+        my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
         collection = my_client["DOC_SCAN"]
         doc_id = collection['AUTH']
         doc = collection['DOCUMENTS']
@@ -380,7 +381,7 @@ def route_function_save():
             'uploaded': False
         }
         my_client = MongoClient()
-        my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+        my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
         collection = my_client["DOC_SCAN"]
         doc_id = collection['AUTH']
         doc = collection['DOCUMENTS']
@@ -424,7 +425,7 @@ def route_function_bulk_save():
             'is_del': False
         }
         my_client = MongoClient()
-        my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+        my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
         collection = my_client["DOC_SCAN"]
         doc_id = collection['AUTH']
         doc = collection['DOCUMENTS']
@@ -501,7 +502,7 @@ def create_scanners():
     pass_changed = False
     total_images_scanned = 0
     image = str(loaded['image'])
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['VIEWER_AUTH']
     ob = {
@@ -523,7 +524,7 @@ def create_scanners():
         "image": image
     }
 
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['VIEWER_AUTH']
     if doc_id.find_one({"emp_id": emp_id}) is None:
@@ -541,7 +542,7 @@ def reset_pass():
     user = str(obj['user']).upper()
     change = str(obj['changed_pass'])
     print("Connecting to db")
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     print("connection successful")
     collection = my_client["DOC_SCAN"]
     doc = collection['VIEWER_AUTH']
@@ -574,7 +575,7 @@ def logout_time_stamp():
     emp = str(request.args.get('emp_id'))
     print(emp)
     print("Connecting to db")
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     print("connection successful")
     collection = my_client["DOC_SCAN"]
     doc = collection['VIEWER_AUTH']
@@ -592,7 +593,7 @@ def deactivate():
     emp = str(request.args.get('emp_id'))
     print(emp)
     print("Connecting to db")
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     print("connection successful")
     collection = my_client["DOC_SCAN"]
     doc = collection['VIEWER_AUTH']
