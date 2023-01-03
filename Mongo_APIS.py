@@ -511,5 +511,16 @@ def soft_del_rev(doc_idd):
                                                                       }})
 
 
+def mrn_checker(mrn):
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
+    db = my_client["DOC_SCAN"]
+    collection = db['DOCUMENTS']
+    print(mrn)
+    if collection.count_documents({"mrno": mrn}) > 0:
+        return True
+    else:
+        return False
+
+
 if __name__ == '__main__':
-    get_multi_vector_single_using_te()
+    print(mrn_checker('000001'))

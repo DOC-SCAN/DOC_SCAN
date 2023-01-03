@@ -647,6 +647,13 @@ def undo_dell():
     return {'msg': "Success", 'status': 200}
 
 
+@app.route("/docscan/check_existence", methods=["GET"])
+@jwt_required()
+def check_existence():
+    r = request.args.get('mrno')
+    return {'msg': Mongo_APIS.mrn_checker(r), 'status': 200}
+
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
