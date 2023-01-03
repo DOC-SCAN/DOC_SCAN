@@ -489,13 +489,15 @@ def bulk_viewer(mr_no):
     return obj
 
 
-def soft_del(doc_idd):
+def soft_del(doc_idd, eid):
     my_client = MongoClient()
     my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
 
     db = my_client["DOC_SCAN"]
     collection = db['DOCUMENTS']
-    doc_to_del = collection.update_one({"doc_id": doc_idd}, {"$set": {"is_del": True}})
+    doc_to_del = collection.update_one({"doc_id": doc_idd}, {"$set": {"is_del": True,
+                                                                      "del_by": str(eid)
+                                                                      }})
 
 
 def soft_del_rev(doc_idd):
@@ -504,7 +506,9 @@ def soft_del_rev(doc_idd):
 
     db = my_client["DOC_SCAN"]
     collection = db['DOCUMENTS']
-    doc_to_del = collection.update_one({"doc_id": doc_idd}, {"$set": {"is_del": False}})
+    doc_to_del = collection.update_one({"doc_id": doc_idd}, {"$set": {"is_del": False,
+                                                                      "del_by": ''
+                                                                      }})
 
 
 if __name__ == '__main__':
