@@ -267,7 +267,7 @@ def bulk_viewer(mr_no):
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
     doc = collection['DOCUMENTS']
-
+    obj = {}
     cur = doc.find({"mrno": mr})
     a0 = []
     a1 = []
@@ -282,7 +282,6 @@ def bulk_viewer(mr_no):
     a10 = []
     a11 = []
     a12 = []
-    a13 = []
     a14 = []
 
     for document in cur:
