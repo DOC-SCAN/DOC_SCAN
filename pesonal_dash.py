@@ -1,7 +1,8 @@
 from pymongo import MongoClient
+from MONGO_CRED import DB_URL, DB_PASSWORD, DB_USERNAME
 
 my_client = MongoClient()
-my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
 
 db = my_client["DOC_SCAN"]
 collection = db['DOCUMENTS']

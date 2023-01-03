@@ -7,13 +7,14 @@ import multiprocessing
 import json
 import bson
 import base64
+from MONGO_CRED import DB_URL, DB_PASSWORD, DB_USERNAME
 
 pytesseract.pytesseract.tesseract_cmd = 'D:\\Tesseract-OCR\\tesseract.exe'
 
 
 def get_multi_vector_single_using_te():
     my_client = MongoClient(connect=False)
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     collection = my_client["DOC_SCAN"]
     df = collection['DOCUMENTS']
     q = df.find({"ocr": None})
@@ -54,7 +55,7 @@ def looper():
 def get_by_mr(mrno, type):
     return_obj = []
     my_client = MongoClient(connect=False)
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     collection = my_client["DOC_SCAN"]
     df = collection['DOCUMENTS']
     return_obj = []
@@ -164,7 +165,7 @@ def get_images_viewer_op(mr, date, doc_id):
     cfs = []
     fcs = []
     my_client = MongoClient(connect=False)
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     collection = my_client["DOC_SCAN"]
     df = collection['DOCUMENTS']
     bp = df.find({"mrno": mr, "visit_date_op": date, "doctor_id_ip": doc_id, "class": "BED SIDE PROCEDURE"})
@@ -239,7 +240,7 @@ def get_images_viewer_op(mr, date, doc_id):
 
 
 def bring_users_data():
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
     collection = my_client["DOC_SCAN"]
     doc_id = collection['VIEWER_AUTH']
     cursor = doc_id.find({}, {'_id': False,
@@ -261,7 +262,7 @@ def bring_users_data():
 def bulk_viewer(mr_no):
     mr = mr_no
     my_client = MongoClient()
-    my_client = MongoClient(host='mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'),
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD),
                             unicode_decode_error_handler='ignore')
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
@@ -490,7 +491,7 @@ def bulk_viewer(mr_no):
 
 def soft_del(doc_idd):
     my_client = MongoClient()
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
 
     db = my_client["DOC_SCAN"]
     collection = db['DOCUMENTS']
@@ -499,7 +500,7 @@ def soft_del(doc_idd):
 
 def soft_del_rev(doc_idd):
     my_client = MongoClient()
-    my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
 
     db = my_client["DOC_SCAN"]
     collection = db['DOCUMENTS']

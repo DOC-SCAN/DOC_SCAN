@@ -3,13 +3,14 @@ import pandas as pd
 from pymongo import MongoClient
 import multiprocessing
 import time
+from MONGO_CRED import DB_URL, DB_PASSWORD, DB_USERNAME
 
 
 def clone_mongo():
     while True:
         time.sleep(3)
         my_client = MongoClient(connect=False)
-        my_client = MongoClient('mongodb://%s:%s@172.29.97.25:27017' % ('docscantest', 'mechanism_123'))
+        my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
         collection = my_client["DOC_SCAN"]
         doc_id = collection['AUTH']
         doc_id.drop()
