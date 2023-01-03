@@ -260,7 +260,8 @@ def route_function_upload():
             'main_type': None,
             'is_bulk': False,
             'uploaded': True,
-            'is_del': False
+            'is_del': False,
+            'del_by': ''
         }
         # print(image)
         print("Connecting to db")
@@ -322,7 +323,8 @@ def route_function_upload_bulk():
             'main_type': None,
             'is_bulk': True,
             'uploaded': True,
-            'is_del': False
+            'is_del': False,
+            'del_by': ''
         }
         # print(image)
         print("Connecting to db")
@@ -378,7 +380,9 @@ def route_function_save():
             'marked_as_fav_by_user': None,  # this will be an array
             'main_type': None,
             'is_bulk': False,
-            'uploaded': False
+            'uploaded': False,
+            'del_by': '',
+            'is_del': False
         }
         my_client = MongoClient()
         my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
@@ -422,6 +426,7 @@ def route_function_bulk_save():
             'marked_as_fav_by_user': None,  # this will be an array
             'main_type': None,
             'is_bulk': True,
+            'del_by': '',
             'is_del': False
         }
         my_client = MongoClient()
@@ -624,9 +629,10 @@ def stats():
 def dell():
     r = request.get_json()
     img_id = str(r['id'])
+    emp_id = str(r['emp_id'])
     img_id = int(img_id)
     print(img_id)
-    Mongo_APIS.soft_del(img_id)
+    Mongo_APIS.soft_del(img_id, emp_id)
     return {'msg': "Success", 'status': 200}
 
 
