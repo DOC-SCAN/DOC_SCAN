@@ -267,7 +267,6 @@ def bulk_viewer(mr_no):
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
     doc = collection['DOCUMENTS']
-    obj = {}
     cur = doc.find({"mrno": mr})
     a0 = []
     a1 = []
@@ -283,7 +282,7 @@ def bulk_viewer(mr_no):
     a11 = []
     a12 = []
     a14 = []
-
+    obj = None
     for document in cur:
         if not document['is_del']:
             if document['class'] == '1':
