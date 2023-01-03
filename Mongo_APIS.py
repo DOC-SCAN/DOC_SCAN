@@ -479,10 +479,7 @@ def bulk_viewer(mr_no):
                     "id": 14,
                     "image": a13
                 },
-                {
-                    "id": 0,
-                    "image": a14
-                }],
+            ],
             "status": 200,
             "message": "Success"
         }
