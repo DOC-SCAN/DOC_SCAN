@@ -675,7 +675,7 @@ def verify_pass():
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
     user_from_db = doc_id.find_one({'emp_id': emp_id})
-    encrpted_password = r['PASSWORD'].encode("utf-8")
+    encrpted_password = password.encode("utf-8")
     print(encrpted_password)
     print(user_from_db['PASSWORD'])
     return {'msg': bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")), 'status': 200}
