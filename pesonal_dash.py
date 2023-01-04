@@ -29,4 +29,4 @@ def stats_calculator():
 
 
 if __name__ == '__main__':
-    pass
+    print(stats_calculator())

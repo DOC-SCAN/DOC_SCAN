@@ -675,15 +675,10 @@ def verify_pass():
     collection = my_client["DOC_SCAN"]
     doc_id = collection['AUTH']
     user_from_db = doc_id.find_one({'emp_id': emp_id})
-    if user_from_db:
-        print("-------------------------------------------------------------------------")
-        encrpted_password = r['PASSWORD'].encode("utf-8")
-        print(encrpted_password)
-        print(user_from_db['PASSWORD'])
-        if bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")) and user_from_db['is_active'] is True:
-            return {'msg': True, 'status': 200}
-        else:
-            return {'msg': False, 'status': 200}
+    encrpted_password = r['PASSWORD'].encode("utf-8")
+    print(encrpted_password)
+    print(user_from_db['PASSWORD'])
+    return {'msg': bc.checkpw(encrpted_password, user_from_db['PASSWORD'].encode("utf-8")), 'status': 200}
 
 
 @app.errorhandler(404)
@@ -693,5 +688,6 @@ def not_found(error):
 
 if __name__ == "__main__":
     # clone_server.initiate_mongo_devil()
-    app.run(debug=True, host='0.0.0.0', threaded=True, port=5000)
+    verify_pass()
+    # app.run(debug=True, host='0.0.0.0', threaded=True, port=5000)
     # waitress.serve(app, host='0.0.0.0', port=5000)
