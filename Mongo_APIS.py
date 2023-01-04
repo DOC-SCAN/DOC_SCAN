@@ -507,5 +507,14 @@ def mrn_checker(mrn):
         return False
 
 
+def class_changer_dumb(img_id, class_num):
+    my_client = MongoClient(DB_URL % (DB_USERNAME, DB_PASSWORD))
+    db = my_client["DOC_SCAN"]
+    collection = db['DOCUMENTS']
+    cur = collection.find({"doc_id": int(img_id)})
+    for document in cur:
+        document["class"] = str(class_num)
+
+
 if __name__ == '__main__':
     pass

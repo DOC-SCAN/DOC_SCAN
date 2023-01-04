@@ -654,6 +654,17 @@ def check_existence():
     return {'msg': Mongo_APIS.mrn_checker(r), 'status': 200}
 
 
+@app.route("/docscan/dumb_classifier", methods=["POST"])
+@jwt_required()
+def dumb_classifier():
+    r = request.get_json()
+    img_id = int(r['id'])
+    class_num = str(r['class'])
+    print("converting", str(img_id), "to", "class", class_num)
+    Mongo_APIS.class_changer_dumb(img_id, class_num)
+    return {'msg': "Success", 'status': 200}
+
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
