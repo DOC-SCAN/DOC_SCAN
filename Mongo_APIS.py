@@ -508,4 +508,4 @@ def mrn_checker(mrn):
 
 
 if __name__ == '__main__':
-    print(mrn_checker('000001'))
+    pass
