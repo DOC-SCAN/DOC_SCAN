@@ -501,7 +501,7 @@ def mrn_checker(mrn):
     db = my_client["DOC_SCAN"]
     collection = db['DOCUMENTS']
     print(mrn)
-    if collection.count_documents({"mrno": mrn}) > 0:
+    if collection.count_documents({"mrno": mrn, "is_del": False}) > 0:
         return True
     else:
         return False
