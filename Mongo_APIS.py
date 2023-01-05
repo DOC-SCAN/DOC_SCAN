@@ -517,4 +517,4 @@ def class_changer_dumb(img_id, class_num):
 
 
 if __name__ == '__main__':
-    pass
+    print(bulk_viewer("730632"))
