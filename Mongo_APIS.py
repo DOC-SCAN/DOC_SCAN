@@ -282,7 +282,11 @@ def bulk_viewer(mr_no):
     a11 = []
     a12 = []
     a14 = []
-    obj = {}
+    obj = {
+        "data": [],
+        "status": 200,
+        "message": "Success"
+    }
     for document in cur:
         if not document['is_del']:
             if document['class'] == '1':
