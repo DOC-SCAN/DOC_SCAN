@@ -282,7 +282,7 @@ def bulk_viewer(mr_no):
     a11 = []
     a12 = []
     a14 = []
-    obj = None
+    obj = {}
     for document in cur:
         if not document['is_del']:
             if document['class'] == '1':
@@ -517,4 +517,4 @@ def class_changer_dumb(img_id, class_num):
 
 
 if __name__ == '__main__':
-    print(bulk_viewer("730632"))
+    print(bulk_viewer("730611"))
