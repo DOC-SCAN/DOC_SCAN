@@ -662,10 +662,11 @@ def dumb_classifier():
     class_num = str(r['class'])
     print("converting", str(img_id), "to", "class", class_num)
     Mongo_APIS.class_changer_dumb(img_id, class_num)
-    return {'msg': "Success", 'status': 200}
+    return {'msg': True, 'status': 200}
 
 
 @app.route("/docscan/verify_pass", methods=["POST"])
+@jwt_required()
 def verify_pass():
     login_details = request.get_json()
     print(login_details)
