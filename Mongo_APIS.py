@@ -516,8 +516,10 @@ def class_changer_dumb(img_id, class_num):
     db = my_client["DOC_SCAN"]
     collection = db['DOCUMENTS']
     cur = collection.find({"doc_id": int(img_id)})
-    for document in cur:
-        document["class"] = str(class_num)
+    # for document in cur:
+    #     print(document)
+    #     document["class"] = {}
+    collection.update_one({"doc_id": int(img_id)}, {"$set": {"class": str(class_num)}})
 
 
 if __name__ == '__main__':
